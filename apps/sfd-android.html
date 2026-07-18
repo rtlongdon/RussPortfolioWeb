@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secondary Flight Display &mdash; SkyView App Suite</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">&#9992;</span>
+      SkyView App Suite
+    </a>
+    <nav class="site-nav">
+      <a href="../index.html">Apps</a>
+    </nav>
+  </div>
+</header>
+
+<section class="app-detail-header">
+  <div class="wrap">
+    <a class="back-link" href="../index.html">&larr; All apps</a>
+    <div class="app-icon" style="background:#7c4dff;">&#9992;</div>
+    <h1>Secondary Flight Display</h1>
+    <p class="tagline">A production-grade secondary flight display for Android tablets, designed to run alongside a Dynon SkyView avionics system on an RV-12.</p>
+    <span class="status-badge status-dev">In development</span>
+  </div>
+</section>
+
+<section class="app-detail-body">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p>Displays real-time flight data from SkyView via UDP, or replays recorded flights from Dynon datalog CSV exports &mdash; a full glass-cockpit backup display rendered at 60&nbsp;FPS.</p>
+
+    <h2>Highlights</h2>
+    <ul>
+      <li>Live SkyView integration over UDP (Type 3 ADAHRS packets, port 8384)</li>
+      <li>Datalog replay with a timeline scrubber for reviewing past flights</li>
+      <li>Glass cockpit instruments: attitude indicator, VSI, airspeed, altitude tape, turn coordinator</li>
+      <li>Calculated rate-of-turn from heading deltas</li>
+    </ul>
+
+    <div class="detail-meta">
+      <div><strong>Platform</strong>Android (Kotlin, landscape locked)</div>
+      <div><strong>Data source</strong>Dynon SkyView UDP + CSV datalog replay</div>
+      <div><strong>Rendering</strong>Jetpack Compose + Canvas @ 60 FPS</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Built for experimental aircraft running Dynon SkyView.
+  </div>
+</footer>
+
+</body>
+</html>

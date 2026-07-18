@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyView App Suite</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&#9992;</span>
+      SkyView App Suite
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Apps</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Apps for the panel, the tablet, and the knob</h1>
+    <p>A companion suite of apps and hardware built around Dynon SkyView avionics &mdash; moving maps, approach training, secondary flight displays, engine monitoring, and a BLE knob to control them all.</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="app-grid">
+
+    <a class="app-card" href="apps/approach-trainer.html">
+      <div class="app-card-top">
+        <div class="app-icon" style="background:#1f6feb;">&#127919;</div>
+        <span class="status-badge status-live">Flight tested</span>
+      </div>
+      <h3>Approach Trainer</h3>
+      <p class="tagline">A synthetic approach procedure trainer that uses live SkyView avionics data to compute real-time guidance to user-defined practice points.</p>
+      <div class="tag-row">
+        <span class="tag">Android</span>
+        <span class="tag">Kotlin</span>
+        <span class="tag">IFR training</span>
+      </div>
+    </a>
+
+    <a class="app-card" href="apps/greatefb.html">
+      <div class="app-card-top">
+        <div class="app-icon" style="background:#1f9d55;">&#128506;</div>
+        <span class="status-badge status-live">Flight tested</span>
+      </div>
+      <h3>GreatEFB</h3>
+      <p class="tagline">An Android tablet electronic flight bag with a live moving map, airspace and airport overlays, driven by SkyView GPS and flight data.</p>
+      <div class="tag-row">
+        <span class="tag">Android</span>
+        <span class="tag">Moving map</span>
+        <span class="tag">EFB</span>
+      </div>
+    </a>
+
+    <a class="app-card" href="apps/sfd-android.html">
+      <div class="app-card-top">
+        <div class="app-icon" style="background:#7c4dff;">&#9992;</div>
+        <span class="status-badge status-dev">In development</span>
+      </div>
+      <h3>Secondary Flight Display</h3>
+      <p class="tagline">A glass-cockpit secondary flight display for RV-12 SkyView panels &mdash; live attitude, airspeed, altitude, and turn coordinator at 60&nbsp;FPS, with datalog replay.</p>
+      <div class="tag-row">
+        <span class="tag">Android</span>
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">Glass cockpit</span>
+      </div>
+    </a>
+
+    <a class="app-card" href="apps/efis-display.html">
+      <div class="app-card-top">
+        <div class="app-icon" style="background:#e07b1f;">&#9881;&#65039;</div>
+        <span class="status-badge status-dev">In development</span>
+      </div>
+      <h3>EFIS Engine Monitor</h3>
+      <p class="tagline">Animated engine gauges &mdash; RPM, oil, fuel, EGT/CHT, and more &mdash; driven by live UDP data from avionics engine monitors.</p>
+      <div class="tag-row">
+        <span class="tag">Android</span>
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">Engine monitor</span>
+      </div>
+    </a>
+
+    <a class="app-card" href="apps/esp32-knob.html">
+      <div class="app-card-top">
+        <div class="app-icon" style="background:#0e9488;">&#127919;</div>
+        <span class="status-badge status-dev">Bench validated</span>
+      </div>
+      <h3>ESP32 Knob</h3>
+      <p class="tagline">A physical BLE knob peripheral &mdash; altitude bug and baro setting on hardware, paired to the tablet apps over Bluetooth.</p>
+      <div class="tag-row">
+        <span class="tag">ESP32</span>
+        <span class="tag">BLE</span>
+        <span class="tag">Hardware</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Built for experimental aircraft running Dynon SkyView.
+  </div>
+</footer>
+
+</body>
+</html>
