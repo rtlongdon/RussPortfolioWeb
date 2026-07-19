@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESP32 Knob &mdash; SkyView App Suite</title>
+<title>Approach Trainer Companion &mdash; Russ Longdon</title>
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -12,32 +12,33 @@
   <div class="wrap">
     <a class="brand" href="../index.html">
       <span class="brand-mark">&#9992;</span>
-      SkyView App Suite
+      Russ Longdon
     </a>
     <nav class="site-nav">
-      <a href="../index.html">Apps</a>
+      <a href="../index.html">Projects</a>
     </nav>
   </div>
 </header>
 
 <section class="app-detail-header">
   <div class="wrap">
-    <a class="back-link" href="../index.html">&larr; All apps</a>
+    <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#0e9488;">&#127919;</div>
-    <h1>ESP32 Knob</h1>
-    <p class="tagline">A physical BLE knob peripheral built on ESP32, giving tactile control of altitude bug and baro setting to the tablet app suite.</p>
-    <span class="status-badge status-dev">Bench validated</span>
+    <h1>Approach Trainer Companion</h1>
+    <p class="tagline">A physical BLE knob built on ESP32, giving Approach Trainer tactile altitude bug and baro control &mdash; without needing Dynon SkyView present.</p>
+    <span class="status-badge status-dev" data-tip="Validated on the bench &mdash; not yet flown in the aircraft." tabindex="0">Bench validated</span>
   </div>
 </section>
 
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it does</h2>
-    <p>A standalone hardware knob that pairs to the tablet apps over Bluetooth Low Energy, giving a physical, panel-like feel for adjusting altitude and barometric pressure instead of touchscreen taps.</p>
+    <p>Approach Trainer normally draws its altitude and baro data from Dynon SkyView. This companion knob supplies that same input directly from its own onboard barometric sensor over Bluetooth Low Energy, so Approach Trainer can be used standalone &mdash; on the bench, or in any aircraft, with no SkyView connection required &mdash; while still giving a physical, panel-like feel instead of touchscreen taps.</p>
 
     <h2>Highlights</h2>
     <ul>
       <li>Altitude knob with integrated barometric sensor, bench-validated over BLE</li>
+      <li>Pairs directly with Approach Trainer, removing the dependency on a live SkyView connection</li>
       <li>Push-button input for mode switching</li>
       <li>Second knob (OBS/course select) planned, not yet wired</li>
     </ul>
@@ -48,6 +49,7 @@
     <div class="detail-meta">
       <div><strong>Platform</strong>ESP32</div>
       <div><strong>Link</strong>Bluetooth Low Energy</div>
+      <div><strong>Pairs with</strong>Approach Trainer</div>
       <div><strong>Status</strong>Bench-validated, OBS knob pending</div>
     </div>
   </div>
@@ -55,7 +57,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    Built for experimental aircraft running Dynon SkyView.
+    Russ Longdon &mdash; software, hardware, and CNC projects.
   </div>
 </footer>
 
