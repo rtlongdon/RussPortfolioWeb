@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreatEFB Data Pipeline &mdash; Russ Longdon</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">&#9992;</span>
+      Russ Longdon
+    </a>
+    <nav class="site-nav">
+      <a href="../index.html">Projects</a>
+    </nav>
+  </div>
+</header>
+
+<section class="app-detail-header">
+  <div class="wrap">
+    <a class="back-link" href="../index.html">&larr; All projects</a>
+    <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
+    <h1>GreatEFB Data Pipeline</h1>
+    <p class="tagline">The offline data pipeline that builds GreatEFB's map data &mdash; sectional charts, airspace, airports, and elevation tiles from FAA source data.</p>
+    <span class="status-badge status-dev" data-tip="Actively used to generate GreatEFB's map data; the tooling itself continues to evolve." tabindex="0">In development</span>
+  </div>
+</section>
+
+<section class="app-detail-body">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p>GreatEFB doesn't fetch or render its own map data live &mdash; it ships with pre-built regional data generated offline by this pipeline. It's built specifically to feed <a href="greatefb.html">GreatEFB</a>, but it's a substantial project in its own right: pulling FAA source data, converting it into app-ready formats, and serving it to the tablet.</p>
+
+    <h2>Highlights</h2>
+    <ul>
+      <li>Chart Generator converts FAA sectional charts into optimized MBTiles using GDAL</li>
+      <li>Elevation baking produces grayscale elevation tiles, region by region</li>
+      <li>Airspace Builder pulls Class B/C/D/E and Special Use Airspace from the FAA's ArcGIS REST API into regional SQLite databases</li>
+      <li>AIS Builder builds airport/navaid supplement databases from FAA NASR/NFDC data</li>
+      <li>A Flask-based regional HTTP server serves the built data (elevation, charts, airports, navaids, airspace) to the GreatEFB tablet app</li>
+      <li>Script Director, a terminal UI, orchestrates the whole pipeline &mdash; elevation bake, airspace/AIS builders, NASR download+parse, and the update server</li>
+      <li>All data is organized into regions aligned with the FAA's chart supplement regions</li>
+    </ul>
+
+    <div class="detail-meta">
+      <div><strong>Data sources</strong>FAA 28-day NASR, FAA AIS ArcGIS REST API, FAA NFDC</div>
+      <div><strong>Produces</strong>MBTiles charts, elevation tiles, airspace/airport SQLite databases</div>
+      <div><strong>Serving</strong>Flask regional HTTP server</div>
+      <div><strong>Orchestration</strong>Script Director (Python TUI)</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Russ Longdon &mdash; software, hardware, and CNC projects.
+  </div>
+</footer>
+
+</body>
+</html>
