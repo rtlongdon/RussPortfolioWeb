@@ -25,18 +25,31 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#c0392b;">&#128734;</div>
     <h1>Trim Wheel</h1>
-    <p class="tagline">A trim wheel for aircraft with electric trim systems.</p>
-    <span class="status-badge status-planned" data-tip="Early concept &mdash; not yet built." tabindex="0">Planned</span>
+    <p class="tagline">A rotary-encoder trim wheel that replaces a momentary trim switch, giving proportional trim control instead of just on/off.</p>
+    <span class="status-badge status-dev" data-tip="Actively being built &mdash; mechanical prototype fitted and custom PCB in progress, not yet bench validated." tabindex="0">In development</span>
   </div>
 </section>
 
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it does</h2>
-    <p>Placeholder &mdash; details to come.</p>
+    <p>The aircraft's stock electric trim control is a momentary switch &mdash; on or off, no proportional control. This project replaces that switch with a quadrature-encoder wheel that reads position and turn rate, then drives the trim servo motor through an H-bridge at a rate proportional to how fast the wheel is turned &mdash; with a dead zone around center and a safety relay cutout so the motor can't run unless the controller commands it.</p>
+
+    <h2>Highlights</h2>
+    <ul>
+      <li>Replaces a momentary on/off trim switch with proportional control, driven by how fast the wheel is turned</li>
+      <li>600 PPR quadrature rotary encoder (LPD3806) senses wheel position and turn rate</li>
+      <li>Motor control state machine with a dead zone, pulse-width drive, and a safety relay that opens by default</li>
+      <li>Custom KiCad PCB ("WheelEtrim") designed and sent out for fabrication</li>
+      <li>Firmware prototyped on an Arduino Nano; evaluating TI's MSPM0L1306 for the production board</li>
+      <li>3D-printed encoder mount/hub and mechanical hardware, with a fit-check mock-up installed in the aircraft floor</li>
+    </ul>
 
     <div class="detail-meta">
-      <div><strong>Status</strong>Planned</div>
+      <div><strong>Sensor</strong>LPD3806 600 PPR quadrature encoder</div>
+      <div><strong>Controller</strong>Arduino Nano (prototype) &rarr; TI MSPM0L1306 (target)</div>
+      <div><strong>PCB</strong>Custom KiCad design (WheelEtrim)</div>
+      <div><strong>Status</strong>Mechanical fit-check installed, electronics in development</div>
     </div>
   </div>
 </section>
