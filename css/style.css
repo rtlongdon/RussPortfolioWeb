@@ -281,6 +281,9 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 .app-detail-body {
   padding: 40px 0 72px;
+}
+
+.app-detail-body .wrap {
   max-width: 760px;
 }
 
