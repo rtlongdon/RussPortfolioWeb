@@ -3,12 +3,26 @@
 import http.server
 import os
 import webbrowser
+from urllib.parse import unquote
 
 PORT = 8793
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+app_root = os.path.dirname(os.path.abspath(__file__))
+greatefb_docs = os.path.join(os.path.dirname(app_root), "GreatEFB", "docs")
 
-Handler = http.server.SimpleHTTPRequestHandler
+os.chdir(app_root)
+
+
+class MultiPathHandler(http.server.SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        path = unquote(path)
+        if path.startswith("/greatefb-docs/"):
+            # Strip /greatefb-docs/ and serve from GreatEFB/docs
+            path = path[15:]  # Remove "/greatefb-docs/"
+            return os.path.join(greatefb_docs, path.lstrip("/"))
+        else:
+            # Default: serve from AppShowcase root
+            return super().translate_path(path)
 
 
 class SingleUseServer(http.server.HTTPServer):
@@ -18,7 +32,7 @@ class SingleUseServer(http.server.HTTPServer):
 
 
 try:
-    with SingleUseServer(("", PORT), Handler) as httpd:
+    with SingleUseServer(("", PORT), MultiPathHandler) as httpd:
         url = f"http://localhost:{PORT}/index.html"
         print(f"Serving {os.getcwd()}")
         print(f"Open {url}")
