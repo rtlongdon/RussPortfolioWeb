@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADAHRS Project &mdash; Russ Longdon</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">&#9992;</span>
+      Russ Longdon
+    </a>
+    <nav class="site-nav">
+      <a href="../index.html">Software &amp; Hardware</a>
+      <a href="../aviation.html">Aviation Stuff</a>
+    </nav>
+  </div>
+</header>
+
+<section class="app-detail-header">
+  <div class="wrap">
+    <a class="back-link" href="../index.html">&larr; All projects</a>
+    <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
+    <h1>ADAHRS Project</h1>
+    <p class="tagline">An experimental attitude and heading reference system (ADAHRS) for experimental aircraft — backup attitude instrument design with sensor fusion and real-time filtering.</p>
+    <span class="status-badge status-dev" data-tip="Currently in discovery and learning phase. Spec'd and conceptual; hardware and software architecture under development." tabindex="0">Early stage</span>
+  </div>
+</section>
+
+<section class="app-detail-body">
+  <div class="wrap">
+    <h2>What it is</h2>
+    <p>A minimal, standalone backup attitude instrument designed to keep the pilot upright if the primary system fails. Rather than a full ADAHRS system, the scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed, with a sensor suite that includes IMU (gyro + accelerometer), GPS for yaw reference and VSI cross-check, and barometric pressure for altitude.</p>
+
+    <h2>Architecture</h2>
+    <ul>
+      <li><strong>IMU-based core:</strong> 9-DOF gyro + accelerometer for attitude and slip detection</li>
+      <li><strong>Redundant yaw:</strong> GPS velocity vector (coordinated flight above minimum groundspeed) as the yaw reference</li>
+      <li><strong>Altitude and VSI:</strong> Barometric pressure sensor for altitude and vertical speed indication</li>
+      <li><strong>Deliberate exclusions:</strong> No magnetometer (eliminates hard/soft iron calibration), no airspeed sensor (no pitot-static tap needed)</li>
+    </ul>
+
+    <h2>Current Phase</h2>
+    <p>Sensor selection and architecture under active review. Learning focus: IMU sensor fusion, Kalman filtering for attitude estimation, GPS velocity noise characterization, and pressure altitude resolution for VSI applications.</p>
+
+    <h2>Next Steps</h2>
+    <ul>
+      <li>Sensor evaluation and prototype board layout</li>
+      <li>Attitude estimation filter implementation (EKF or complementary filter)</li>
+      <li>Real-time firmware development (C/C++ on microcontroller)</li>
+      <li>Flight-test validation and integration with existing avionics</li>
+    </ul>
+
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="/adahrs-docs/sensor_selection_and_architecture.md" target="_blank">Sensor Selection &amp; Architecture</a> — Technical analysis of sensor choices and system design</li>
+      <li><a href="/adahrs-docs/backup_adahrs_concept.md" target="_blank">Backup ADAHRS Concept</a> — Core design philosophy and approach</li>
+    </ul>
+
+    <div class="detail-meta">
+      <div><strong>Focus</strong>Backup attitude instrument</div>
+      <div><strong>Approach</strong>IMU fusion + GPS yaw reference</div>
+      <div><strong>Status</strong>Concept &amp; discovery phase</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Russ Longdon &mdash; software, hardware, and CNC projects.
+  </div>
+</footer>
+
+</body>
+</html>

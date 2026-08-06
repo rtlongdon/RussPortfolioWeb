@@ -9,6 +9,8 @@ PORT = 8793
 
 app_root = os.path.dirname(os.path.abspath(__file__))
 greatefb_docs = os.path.join(os.path.dirname(app_root), "GreatEFB", "docs")
+approachtrainer_docs = os.path.join(os.path.dirname(app_root), "ApproachTrainer", "Docs")
+adahrs_docs = os.path.join(os.path.dirname(app_root), "ADAHRS_Project", "docs")
 
 os.chdir(app_root)
 
@@ -20,6 +22,14 @@ class MultiPathHandler(http.server.SimpleHTTPRequestHandler):
             # Strip /greatefb-docs/ and serve from GreatEFB/docs
             path = path[15:]  # Remove "/greatefb-docs/"
             return os.path.join(greatefb_docs, path.lstrip("/"))
+        elif path.startswith("/approachtrainer-docs/"):
+            # Strip /approachtrainer-docs/ and serve from ApproachTrainer/Docs
+            path = path[21:]  # Remove "/approachtrainer-docs/"
+            return os.path.join(approachtrainer_docs, path.lstrip("/"))
+        elif path.startswith("/adahrs-docs/"):
+            # Strip /adahrs-docs/ and serve from ADAHRS_Project/docs
+            path = path[13:]  # Remove "/adahrs-docs/"
+            return os.path.join(adahrs_docs, path.lstrip("/"))
         else:
             # Default: serve from AppShowcase root
             return super().translate_path(path)
