@@ -25,43 +25,58 @@
 <section class="hero">
   <div class="wrap">
     <h1>About Russ Longdon</h1>
-    <p>Software engineer, experimental aircraft builder, and avionics developer.</p>
+    <p>Design engineer, experimental aircraft junkie, and avionics developer.</p>
   </div>
 </section>
 
-<main class="wrap" style="max-width: 800px; margin: 40px auto;">
+<main class="wrap" style="display: grid; grid-template-columns: 1fr 300px; gap: 40px; max-width: 1000px; margin: 40px auto;">
 
-  <h2>Background</h2>
-  <p>I'm a Senior Electrical Engineer with over 20 years of experience designing power electronics, embedded systems, and automated test equipment for renewable energy, marine, and emergency vehicle markets. I hold a U.S. patent for charger control architecture and have led full product lifecycle development from concept through production.</p>
+  <div>
+    <h2>Background</h2>
+  <p>I'm a Senior Electrical Engineer with over 20 years of experience designing power electronics, embedded systems, and automated test equipment across renewable energy, marine, emergency vehicle, and aerospace markets. I hold a U.S. patent for charger control architecture and have led full product lifecycle development from concept through production.</p>
 
-  <p>As a Licensed FAA Commercial Pilot and Certified Flight Instructor, I bring practical aviation experience to every project. I'm currently pursuing self-directed software development focused on aviation-related Android applications for experimental aircraft operations.</p>
+  <p>I'm a hands-on generalist engineer — equally comfortable working on power electronics, firmware, PCB design, mechanical engineering, and software development. I also hold FAA Commercial Pilot and Certified Flight Instructor certifications, which inform but don't limit my engineering interests.</p>
 
-  <h2>Technical Foundation</h2>
-  <p>My background spans:</p>
+  <h2>Technical Capabilities</h2>
+  <p>My background spans multiple engineering disciplines:</p>
   <ul>
     <li><strong>Power Electronics & Embedded Systems</strong> — AC/DC, DC/DC, PFC, PWM design; C, Assembly, Python firmware; ARM Cortex M3/M4 microcontrollers</li>
-    <li><strong>EMI/EMC Compliance</strong> — UL, CE, ISO 7637-2 / 16750-2 standards; transient protection design</li>
-    <li><strong>PCB & Mechanical Design</strong> — Altium Designer, KiCad, SolidWorks, Fusion 360</li>
-    <li><strong>Automated Test Fixtures</strong> — Production and burn-in systems, mechanical test fixturing</li>
-    <li><strong>Manufacturing & Offshore Collaboration</strong> — Contract manufacturer partnerships and product transfer to volume production</li>
+    <li><strong>PCB &amp; Mechanical Design</strong> — Altium Designer, KiCad, OrCad, SolidWorks, Fusion 360 for everything from sheet metal to plastic enclosures</li>
+    <li><strong>EMI/EMC Compliance</strong> — UL, CE, ISO 7637-2 / 16750-2 standards; transient protection and regulatory compliance</li>
+    <li><strong>Automated Test &amp; Manufacturing</strong> — Production test fixtures, burn-in systems, mechanical fixturing; offshore manufacturing collaboration</li>
+    <li><strong>Mobile &amp; Desktop Software</strong> — Android Studio, Kotlin, Java; recent self-directed expansion into application development</li>
+    <li><strong>CNC Fabrication &amp; Machining</strong> — Custom CNC router design and operation for personal fabrication projects</li>
   </ul>
 
-  <h2>Current Focus</h2>
-  <p>My recent transition into self-directed Android application development leverages decades of embedded systems expertise to build aviation software for experimental aircraft. My work spans:</p>
+  <h2>Projects &amp; Interests</h2>
+  <p>I work across multiple domains and scales:</p>
   <ul>
-    <li><strong>Android Avionics Apps</strong> — Moving maps, flight planning, approach training, and secondary flight displays integrated with Dynon SkyView avionics</li>
-    <li><strong>Embedded Hardware &amp; Firmware</strong> — Sensor-fusion attitude systems, proportional control interfaces, motor controllers, and wireless modules for cockpit integration</li>
-    <li><strong>Data Pipelines</strong> — Offline map generation, chart processing, and airspace/airport data from FAA sources</li>
-    <li><strong>CNC Fabrication</strong> — Custom-built CNC router for personal engineering projects and aircraft components</li>
+    <li><strong>Android Application Development</strong> — A self-directed learning project to broaden my experience in software development. I'm successfully building working applications (moving maps, flight planning tools, approach training systems, secondary flight displays) while expanding from embedded systems into the Android ecosystem. The apps are real, functional, and flight-tested — learning through practical application rather than theory alone.</li>
+    <li><strong>Embedded Hardware &amp; Firmware</strong> — Motor controllers, sensor-fusion systems, wireless modules, and custom test equipment</li>
+    <li><strong>Full Product Development</strong> — From initial concept through production, including data pipelines, manufacturing transfer, and field testing</li>
+    <li><strong>CNC &amp; Mechanical Projects</strong> — Machine design and fabrication for whatever needs solving</li>
   </ul>
 
   <h2>Philosophy</h2>
-  <p>Everything I build starts with a real need in the aircraft. I prototype in the field, test in flight, and iterate based on what I learn. The result is software and hardware that's battle-tested before it's released — combining decades of engineering rigor with practical aviation experience.</p>
+  <p>I believe in building things that work. Whether it's power electronics, firmware, software, or a CNC machine — I prototype, test, iterate, and refine until it's solid. Real-world use is the best teacher. I stay current across multiple disciplines because problems rarely fit into a single specialty, and versatility beats narrow expertise.</p>
+  </div>
 
-  <h2>Open to Discussion</h2>
-  <p>If you're interested in experimental aviation, avionics development, or sensor fusion systems, I'm always happy to discuss ideas and approaches. These projects represent years of learning from the aviation community, and I'm committed to sharing what I've discovered.</p>
+  <aside style="display: flex; flex-direction: column; gap: 20px;">
+    <img src="assets/russ-profile.jpg" alt="Russ Longdon" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+  </aside>
 
 </main>
+
+<style>
+  @media (max-width: 768px) {
+    main {
+      grid-template-columns: 1fr !important;
+    }
+    aside {
+      max-width: 300px;
+    }
+  }
+</style>
 
 <footer class="site-footer">
   <div class="wrap">
