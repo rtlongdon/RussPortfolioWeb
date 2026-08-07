@@ -44,7 +44,7 @@
       <li>Airspace Builder pulls Class B/C/D/E and Special Use Airspace from the FAA's ArcGIS REST API into regional SQLite databases</li>
       <li>AIS Builder builds airport/navaid supplement databases from FAA NASR/NFDC data</li>
       <li>A Flask-based regional HTTP server serves the built data (elevation, charts, airports, navaids, airspace) to the GreatEFB tablet app</li>
-      <li>Script Director, a terminal UI, orchestrates the whole pipeline &mdash; elevation bake, airspace/AIS builders, NASR download+parse, and the update server</li>
+      <li>Script Director orchestrates the whole pipeline &mdash; elevation bake, airspace/AIS builders, NASR download+parse, and the update server</li>
       <li>All data is organized into regions aligned with the FAA's chart supplement regions</li>
     </ul>
 
@@ -52,7 +52,7 @@
       <div><strong>Data sources</strong>FAA 28-day NASR, FAA AIS ArcGIS REST API, FAA NFDC</div>
       <div><strong>Produces</strong>MBTiles charts, elevation tiles, airspace/airport SQLite databases</div>
       <div><strong>Serving</strong>Flask regional HTTP server</div>
-      <div><strong>Orchestration</strong>Script Director (Python TUI)</div>
+      <div><strong>Orchestration</strong>Script Director</div>
     </div>
   </div>
 </section>
