@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreatEFB User Manual</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #d9d9d9;
+            --accent-green: #2a5f2f;
+            --accent-blue: #1e3a5f;
+            --caution-amber: #b8860b;
+            --status-red: #c41e3a;
+            --status-green: #2a8f2a;
+            --status-gray: #6b7280;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1f1f1f;
+                --bg-secondary: #2a2a2a;
+                --text-primary: #f0f0f0;
+                --text-secondary: #b8b8b8;
+                --border-color: #404040;
+                --accent-green: #5a9f5f;
+                --accent-blue: #4e6a9f;
+                --caution-amber: #d4a940;
+                --status-red: #e74c3c;
+                --status-green: #5fa85f;
+            }
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #d9d9d9;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #1f1f1f;
+            --bg-secondary: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --border-color: #404040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin: 0;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.5;
+            transition: color 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover {
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            color: var(--accent-green);
+            border-left-color: var(--accent-green);
+            background: rgba(42, 95, 47, 0.05);
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 60px;
+            max-width: 900px;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                padding: 32px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px 0;
+            }
+
+            .content {
+                padding: 24px 20px;
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent-green);
+            text-wrap: balance;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .preamble {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        p+p {
+            margin-top: 12px;
+        }
+
+        ul,
+        ol {
+            margin: 16px 0 16px 24px;
+            color: var(--text-primary);
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--accent-green);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(42, 95, 47, 0.3);
+        }
+
+        a:hover {
+            border-bottom-color: var(--accent-green);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 32px 0;
+        }
+
+        .callout {
+            background: rgba(42, 95, 47, 0.08);
+            border-left: 3px solid var(--accent-green);
+            padding: 12px 16px;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .callout strong {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .callout.caution {
+            background: rgba(184, 134, 11, 0.1);
+            border-left-color: var(--caution-amber);
+        }
+
+        .callout.caution strong {
+            color: var(--caution-amber);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        code {
+            font-family: "Courier New", monospace;
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .section-number {
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        .label {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 2px;
+            letter-spacing: 0.02em;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.ok {
+            background: rgba(42, 143, 42, 0.15);
+            color: var(--status-green);
+        }
+
+        .status.fail {
+            background: rgba(196, 30, 58, 0.15);
+            color: var(--status-red);
+        }
+
+        blockquote {
+            border-left: 3px solid var(--accent-blue);
+            padding: 12px 16px;
+            margin: 20px 0;
+            background: rgba(30, 58, 95, 0.05);
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .footnote {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-style: italic;
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">Navigation</div>
+            <ul class="sidebar-nav">
+                <li><a href="#warnings" class="active">System Requirements & Warnings</a></li>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#moving-map">Moving Map</a></li>
+                <li><a href="#weather">Weather</a></li>
+                <li><a href="#terrain">Terrain</a></li>
+                <li><a href="#traffic">Traffic</a></li>
+                <li><a href="#flight-planning">Flight Planning</a></li>
+                <li><a href="#aircraft">Aircraft Profiles</a></li>
+                <li><a href="#data-management">Data Management</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#appendix">Appendix</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1>GreatEFB User Manual</h1>
+            <p class="subtitle">Complete reference guide — verified against running app and source code</p>
+
+            <p class="preamble">
+                This manual assumes you already know how to read a sectional, fly a heading/track, and interpret
+                standard weather products (METAR/TAF/AIRMET/SIGMET/TFR/NOTAM). It does not re-teach navigation or
+                weather theory — it explains what GreatEFB shows you and how to operate it.
+            </p>
+
+            <div class="divider"></div>
+
+            <section id="warnings">
+                <h2><span class="section-number">1.</span> System Requirements & Warnings</h2>
+
+                <h3>System Requirements</h3>
+                <p>GreatEFB operates as a moving map and flight planning application on any tablet. For real-time
+                    aircraft data (position, altitude, attitude, engine telemetry, and traffic display), a <strong>Dynon
+                        SkyView avionics system with WiFi connectivity</strong> is required. The app functions without
+                    SkyView — charts, airspace, flight planning, and pre-downloaded weather layers remain available —
+                    but live avionics data will not display nor will traffic or ADSB dependent services (TIS-B/FIS-B products).</p>
+
+                <h3>Important Safety & Liability Notice</h3>
+                <p>Before using GreatEFB in flight, read and understand all of the following:</p>
+
+                <ul>
+                    <li><strong>Pilot Judgment is Final</strong> — GreatEFB is a situational awareness tool. The final
+                        authority on navigation, weather avoidance, terrain clearance, and airspace compliance rests
+                        with the pilot in command and your aircraft's certified instruments. Never make flight decisions
+                        based solely on GreatEFB data.</li>
+
+                    <li><strong>Official Weather Briefings Required</strong> — Do not substitute GreatEFB weather
+                        displays for a full preflight weather briefing from Flight Service (1-800-WX-BRIEF),
+                        aviationweather.gov, or NOAA Aviation Weather. Weather on this device may be delayed,
+                        incomplete, or inaccurate.</li>
+
+                    <li><strong>Altitude — Use Your Altimeter</strong> — GreatEFB displays altitude from your aircraft's
+                        altimeter (via Dynon) or tablet GPS. GPS-derived altitude may differ significantly from pressure
+                        altitude. Your aircraft's pressure altimeter is the authoritative altitude reference — use it
+                        for all altitude-related decisions, including terrain and obstacle clearance.</li>
+
+                    <li><strong>VFR Only</strong> — GreatEFB is designed for VFR operations. It is not equipped,
+                        certified, or intended for IFR flight, approaches, or operations in instrument meteorological
+                        conditions. Use at your own risk.</li>
+
+                    <li><strong>Traffic Display Is Not Collision Avoidance</strong> — ADS-B and TIS-B traffic is shown
+                        for situational awareness only. It is your responsibility to see and avoid other aircraft.
+                        Traffic may be incomplete, delayed, or absent — do not assume ADS-B coverage is continuous or
+                        that all aircraft in your vicinity are displayed.</li>
+
+                    <li><strong>NEXRAD for Strategic Planning Only</strong> — Weather radar displayed on GreatEFB should
+                        inform only your pre-flight and en-route strategic planning, not tactical decisions to avoid
+                        active weather. Use on-board radar or real-time PIREP updates for active weather avoidance.</li>
+
+                    <li><strong>Data Accuracy and Currency</strong> — All aviation data (charts, airspace, NOTAMs, TFRs,
+                        airport information, navaids) comes from government and public sources and is provided without
+                        warranty of accuracy, completeness, or timeliness. Before each flight, verify NOTAMs and TFR
+                        status through official FAA channels. Outdated data may be dangerous — keep your device's data
+                        current.</li>
+
+                    <li><strong>Terrain Data Has Limitations</strong> — Terrain layers and elevation data are advisory
+                        aids only, not certified terrain awareness systems. Terrain data may be inaccurate or
+                        incomplete. Maintain visual scanning and rely on your altimeter for terrain clearance decisions.
+                    </li>
+
+                    <li><strong>Tablet Mounting</strong> — Position your tablet to avoid obstructing instrument
+                        scanning, forward visibility, or access to flight controls.</li>
+
+                    <li><strong>No Warranty</strong> — GreatEFB is provided "as is." The developer makes no warranties
+                        regarding accuracy, reliability, or fitness for navigation or safety-critical use. The developer
+                        is not liable for errors, omissions, or failures in the software or displayed data, nor for any
+                        consequences of relying on GreatEFB during flight operations.</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="intro">
+                <h2><span class="section-number">2.</span> Introduction</h2>
+                <p>GreatEFB is a moving-map Electronic Flight Bag for tablets, built to work alongside Dynon SkyView
+                    avionics in experimental aircraft. It displays your position, track, and altitude over sectional charts
+                    with overlays for airspace, airports, traffic, weather, TFRs, and terrain. You can plan flights by creating
+                    and editing routes, and the app automatically fetches weather and NOTAMs relevant to your flight plan.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="getting-started">
+                <h2><span class="section-number">3.</span> Getting Started</h2>
+
+                <h3>No Setup Wizard</h3>
+                <p>The app opens directly to the moving map.</p>
+
+                <h3>Network</h3>
+                <p>Your tablet must be on the same network as your SkyView system (or whatever device is relaying its
+                    UDP data). GreatEFB listens passively on two ports and does not require you to enter an IP address:
+                </p>
+                <ul>
+                    <li>Port 49155 (ASCII sentences — ADAHRS, system data)</li>
+                    <li>Port 8384 (protobuf — GPS, ADAHRS)</li>
+                </ul>
+
+                <h3>Data Source</h3>
+                <p>GreatEFB defaults to <strong>Dynon SkyView</strong> as its data source (Settings → Data Source). You
+                    can switch to your tablet's own GPS instead; doing so will prompt for location permission the first
+                    time. The app remembers your last choice and restores it on the next startup.</p>
+
+                <h3>Confirming Data Flow</h3>
+                <p>As of this build, there is no dedicated "Connected" indicator. The practical ways to confirm data is
+                    flowing:</p>
+                <ul>
+                    <li>Watch the map — your aircraft symbol should appear and move.</li>
+                    <li>Open Settings → Debug and enable one of the diagnostic overlays (GPS Debug Display, Dynon
+                        Datastreams, or Network (UDP Relay)) to see raw data and packet rates. These are troubleshooting
+                        tools, not part of normal flight use, and are off by default.</li>
+                </ul>
+
+                <h3>Charts, Terrain & Airspace Data</h3>
+                <div class="callout">
+                    <strong>Critical:</strong> Chart, terrain, and airspace data must be downloaded separately before
+                    you fly — see <a href="#data-management">Data Management</a>. This requires your tablet to reach a
+                    data server on your local network (discovered automatically via mDNS) — it is not a direct internet
+                    download. If you don't already have that server set up on your home network, chart/terrain sync
+                    won't find anything to connect to.
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="moving-map">
+                <h2><span class="section-number">4.</span> Moving Map</h2>
+
+                <p>The map fills the entire screen, displaying all navigational layers, traffic, weather hazards, and
+                    your flight plan. The experience is heavily interactive — tapping on features opens context-specific
+                    detail dialogs and action menus. A tab bar above the map switches between <strong>Map</strong>,
+                    <strong>Flight Plan</strong>, and <strong>Resume Plan</strong> (the last only appears when a flight
+                    plan is suspended). A Zulu clock (<code>HH:MM:SSZ</code>) sits next to the tabs.</p>
+
+                <h3>Floating Controls</h3>
+                <p>Top-right of the map:</p>
+                <ul>
+                    <li><strong>⚙ Settings</strong> — opens the Settings dialog</li>
+                    <li><strong>Center-lock button</strong> — toggles between "✋" (free pan) and "⊕" (camera locked to
+                        your aircraft, smooth-follow). Panning more than 500m from your aircraft automatically
+                        disengages the lock.</li>
+                    <li><strong>WX</strong> — opens the Weather panel</li>
+                </ul>
+
+                <h3>Data Blocks</h3>
+                <p>TRK, HDG, GS, and ALT are shown as individually draggable, resizable overlays on the map. Their
+                    positions are remembered between sessions.</p>
+                <p><strong>Heading Availability:</strong> Magnetic heading (HDG) is only shown when that data is
+                    available from SkyView. If using Tablet GPS as your data source, only true track (TRK) and
+                    optionally magnetic track (computed from GPS track using magnetic declination) are available —
+                    magnetic heading from an attitude system is not available.</p>
+
+                <h3>Ownship Symbol</h3>
+                <p>A red aircraft icon pointing in the direction of travel, rotating with heading. This represents your
+                    own aircraft as designated via <strong>Set as Ownship</strong> (see below).</p>
+
+                <h4>Setting Ownship from Traffic</h4>
+                <p>To designate a traffic target as your own aircraft, <strong>long-press the traffic target</strong>
+                    (hold for ~500ms). This process works as follows:</p>
+
+                <p><strong>Sanity Check:</strong> If the target is implausibly far from your tablet's GPS position, a
+                    warning dialog appears: <span class="label">That Doesn't Look Like Your Aircraft</span>. The dialog
+                    shows the distance and lets you either cancel or proceed anyway. This check is a soft warning
+                    (overridable), not a hard block, since your tablet's GPS fix can be briefly stale or inaccurate.</p>
+
+                <p><strong>Confirmation:</strong> After passing the sanity check (or if there is no warning), a
+                    confirmation dialog asks you to confirm: <span class="label">Set as Ownship?</span>. This warns you
+                    that GreatEFB will hide TIS-B traffic reports with that ICAO address from now on.</p>
+
+                <p><strong>Aircraft Profile Creation:</strong> When you confirm, GreatEFB immediately:</p>
+                <ul>
+                    <li>Filters out that ICAO address from the traffic display</li>
+                    <li>Looks up whether an aircraft profile already exists for that ICAO code (Mode S) or tail number
+                        (callsign)</li>
+                    <li><strong>If no profile exists:</strong> Creates a minimal new profile with just the tail number
+                        (or hex ICAO code if no callsign) and the Mode S code populated. You can edit this profile later
+                        in Settings → Aircraft → Manage Profiles to add more details (aircraft type, fuel capacity,
+                        cruise speed, etc.)</li>
+                    <li><strong>If a profile already exists:</strong> Uses the existing profile and marks it as Ownship
+                    </li>
+                </ul>
+
+                <p><strong>Changing Ownship:</strong> Only one aircraft can be designated as Ownship at a time. If you
+                    long-press a different traffic target while ownship is already set, GreatEFB shows a toast message:
+                    <span class="label">Ownship already set to {tailNumber}. Change it from Manage Aircraft if
+                        needed.</span> To switch to a different aircraft as ownship, go to Settings → Aircraft → Manage
+                    Profiles, find the current ownship profile, and uncheck it, then use Manage Profiles to mark a
+                    different aircraft as ownship.</p>
+
+                <h3>Tapping Airports</h3>
+                <p>Tapping an airport opens a detail sheet showing:</p>
+                <ul>
+                    <li>Position, elevation, and facility type</li>
+                    <li>Available frequencies (ATIS, tower, ground, CTAF, etc.)</li>
+                    <li>Services and fuel availability</li>
+                    <li>Runway dimensions and headings</li>
+                    <li>Manager contact information</li>
+                    <li>Remarks (e.g., "PPR required", "Turf runway")</li>
+                    <li>Current FIS-B METAR/TAF for that airport (if available)</li>
+                    <li>Merged NOTAM section (FIS-B plus on-demand ground lookup)</li>
+                </ul>
+
+                <div class="callout caution">
+                    <strong>Safety Note:</strong> If the NOTAM fetch fails, the app explicitly tells you <span
+                        class="label">Unable to check NOTAMs -- do not assume none exist</span> rather than showing a
+                    blank result.
+                </div>
+
+                <h3>Tapping Traffic (ADS-B/TIS-B)</h3>
+                <p>Tapping a traffic target opens a detail dialog showing:</p>
+                <ul>
+                    <li>Callsign or ICAO address (hex)</li>
+                    <li>Altitude (pressure altitude reported by the target)</li>
+                    <li>Ground speed and vertical speed</li>
+                    <li>Distance and relative bearing from your aircraft</li>
+                    <li>Alert status flag (whether in your protected zone)</li>
+                </ul>
+
+                <h3>Tapping Navaids</h3>
+                <p>Tapping a navaid marker (VOR, NDB, etc.) opens a simple dialog showing:</p>
+                <ul>
+                    <li>Identifier and name</li>
+                    <li>Type (VOR, VOR/DME, NDB, etc.)</li>
+                </ul>
+
+                <h3>Tapping PIREPs</h3>
+                <p>Tapping a PIREP symbol opens a detail dialog showing the pilot report's:</p>
+                <ul>
+                    <li>Type (turbulence, icing, mountain obscuration, wind shear, etc.)</li>
+                    <li>Altitude reported</li>
+                    <li>Observation time (Zulu)</li>
+                    <li>Visibility, temperature, and weather conditions (when reported)</li>
+                    <li>Raw text of the full report</li>
+                </ul>
+
+                <h3>Tapping Advisories (AIRMET/SIGMET/G-AIRMET/CWA)</h3>
+                <p>Tapping on an advisory polygon or hazard marking opens a detail dialog showing:</p>
+                <ul>
+                    <li>Advisory type (AIRMET, SIGMET, G-AIRMET, CWA)</li>
+                    <li>Hazard description (e.g., "Moderate Turbulence", "Icing", "IFR Conditions")</li>
+                    <li>Valid time window</li>
+                    <li>Altitude restrictions (when applicable)</li>
+                    <li>Full text of the advisory</li>
+                </ul>
+
+                <h3>Tapping TFRs (Temporary Flight Restrictions)</h3>
+                <p>Tapping a TFR polygon opens a detail dialog showing:</p>
+                <ul>
+                    <li>TFR type and effective dates/times</li>
+                    <li>Altitude restrictions and notam details</li>
+                    <li>Linked NOTAM text with full regulatory language</li>
+                    <li>Reason for the restriction (airshow, VIP movement, wildfire, etc.)</li>
+                </ul>
+
+                <h3>Multiple Features at One Tap (Stack-Up Dialog)</h3>
+                <p>If you tap on a location where multiple features overlap — for example, an airport that sits inside a
+                    TFR zone, or a traffic target near a navaid — GreatEFB shows a <strong>selection dialog</strong>
+                    listing all features at that location. Tap the one you want to view its detail. This prevents
+                    accidental openings of the wrong feature when features are stacked closely.</p>
+
+                <h3>Flight Plan Waypoint Interaction</h3>
+                <p>While a flight plan is active and displayed as a magenta line on the map:</p>
+                <ul>
+                    <li><strong>Tap a waypoint marker:</strong> Opens the detail for that waypoint (airport, navaid, or
+                        fix)</li>
+                    <li><strong>Long-press a waypoint:</strong> (hold for ~500ms) Allows you to delete that waypoint
+                        from the active plan</li>
+                    <li><strong>Drag a waypoint:</strong> Move it to a new location on the map, updating the flight plan
+                        geometry in real time</li>
+                </ul>
+
+                <h3>Rubber Band (Waypoint Editing)</h3>
+                <p>While a flight plan is active and displayed on the map, you can edit waypoint positions using the
+                    rubber band feature:</p>
+                <ol>
+                    <li><strong>Drag a waypoint:</strong> Long-press and drag any waypoint marker to a new location on
+                        the map</li>
+                    <li><strong>Temporary yellow line:</strong> As you drag, a yellow line appears connecting the
+                        waypoint's original position to your current drag position, showing where the waypoint will move
+                        to</li>
+                    <li><strong>Accept or cancel:</strong>
+                        <ul>
+                            <li>Release your drag to <strong>accept</strong> the new waypoint position — the flight plan
+                                updates and the yellow line disappears</li>
+                            <li>Tap elsewhere or press back to <strong>cancel</strong> the move — the waypoint snaps
+                                back to its original position and the yellow line disappears</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p>This allows you to fine-tune your route on the fly without opening the Flight Plan tab — useful for
+                    avoiding weather, terrain, or airspace as conditions change during flight.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="weather">
+                <h2><span class="section-number">5.</span> Weather</h2>
+
+                <p>The <strong>WX</strong> button opens a menu with seven modes, each showing a real-time synthesis of
+                    two independent data sources: <strong>FIS-B</strong> (received over the air from Dynon via port
+                    8384) and <strong>ground fetch</strong> (Wi-Fi HTTP download from aviationweather.gov and other
+                    public endpoints). Understanding how these two sources work together and when they disagree is key
+                    to trusting GreatEFB's weather picture.</p>
+
+                <h3>Data Modes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Sources</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>METAR / TAF</code></td>
+                            <td>FIS-B + Ground</td>
+                            <td>Current conditions and forecasts for nearby stations</td>
+                        </tr>
+                        <tr>
+                            <td><code>Winds Aloft</code></td>
+                            <td>FIS-B + Ground</td>
+                            <td>Nearest 20 reporting stations (by distance from your position, or alphabetical if no GPS
+                                fix), with altitude/direction/speed/temp</td>
+                        </tr>
+                        <tr>
+                            <td><code>Advisories (AIRMET/SIGMET/SUA/CWA)</code></td>
+                            <td>FIS-B + Ground</td>
+                            <td>Active airmets, sigmets, special use airspace, center weather advisories; includes
+                                polygon shapes when available</td>
+                        </tr>
+                        <tr>
+                            <td><code>NEXRAD Status</code></td>
+                            <td>FIS-B only</td>
+                            <td>Radar mosaic diagnostic info (block counts, resolution tiers); not ground-fetched</td>
+                        </tr>
+                        <tr>
+                            <td><code>TFR Keyword Search</code></td>
+                            <td>Ground only</td>
+                            <td>Search NOTAMs by keyword for TFR-related text; FIS-B TFRs appear in the graphic overlay
+                                instead</td>
+                        </tr>
+                        <tr>
+                            <td><code>TFR Graphic Overlay</code></td>
+                            <td>FIS-B only</td>
+                            <td>Raw decoded TFR polygon/circle geometry and altitude restrictions</td>
+                        </tr>
+                        <tr>
+                            <td><code>NOTAMs (FIS-B + NMS-API)</code></td>
+                            <td>FIS-B + Ground</td>
+                            <td>Ambient NOTAMs merged from FIS-B and the FAA NMS API, deduplicated and sorted</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Weather Report Types: Sources, Timing & Availability</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Report Type</th>
+                            <th>Sources</th>
+                            <th>Update Timing</th>
+                            <th>Pruning / Staleness</th>
+                            <th>Map Graphics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>METAR</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>~90 min (newest arrival for a station replaces prior METAR)</td>
+                            <td>Text only; airport colored dots (VFR/MVFR/LIFR)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TAF</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>Uses declared TAF valid-to time</td>
+                            <td>Text only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Winds Aloft</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>~3 hours (typical validity)</td>
+                            <td>Text only; station list</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AIRMET (Text)</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>Uses declared AIRMET valid-to time</td>
+                            <td>Text only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SIGMET (Text)</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>Uses declared SIGMET valid-to time</td>
+                            <td>Text + polygon graphics (on map)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>G-AIRMET</strong></td>
+                            <td>Ground only</td>
+                            <td>Continuous (issued on demand, not periodic)</td>
+                            <td>Uses G-AIRMET forecast time range</td>
+                            <td>Polygon graphics (on map, color-coded by hazard type: turbulence, icing, mountain
+                                obscuration)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Center Weather Advisory (CWA)</strong></td>
+                            <td>Ground only</td>
+                            <td>Issued by ARTCC as needed (not periodic)</td>
+                            <td>Uses declared CWA valid time range</td>
+                            <td>Text + polygon geometry (when available on map)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PIREP</strong></td>
+                            <td>FIS-B + Ground (merged)</td>
+                            <td>FIS-B ~10 min batch; Ground every 15 min (30s retry on failure)</td>
+                            <td>~60 minutes</td>
+                            <td>Text + point markers on map (tap to view details)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TFR (Graphic)</strong></td>
+                            <td>FIS-B only (for map overlay)</td>
+                            <td>FIS-B ~10 min; updated whenever issued</td>
+                            <td>Uses TFR effective/end times</td>
+                            <td>Polygon graphics (on map, tap to view NOTAM text)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TFR (Text Search)</strong></td>
+                            <td>Ground only (keyword search)</td>
+                            <td>Every 15 min (30s retry on failure)</td>
+                            <td>Uses NOTAM validity dates</td>
+                            <td>Text only (search results in Weather panel)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NOTAM (Ambient)</strong></td>
+                            <td>FIS-B + Ground (NMS API, merged & deduplicated)</td>
+                            <td>FIS-B ~10 min; Ground every 15 min (30s retry on failure)</td>
+                            <td>Uses NOTAM effective/end times</td>
+                            <td>Text only (list in Weather panel + per-airport detail view)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NEXRAD Status</strong></td>
+                            <td>FIS-B only</td>
+                            <td>FIS-B ~10 min</td>
+                            <td>Current; mosaic is live radar data</td>
+                            <td>Diagnostic text only (not a primary flying tool)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>Map Graphics Summary:</strong> The moving map displays polygon overlays for
+                    <strong>SIGMETs</strong>, <strong>G-AIRMETs</strong>, <strong>TFRs</strong>, and
+                    <strong>CWAs</strong> (when geometry is available). <strong>PIREPs</strong> appear as point markers.
+                    Tap any graphic to see the full advisory text. Text-only products (METAR, TAF, Winds Aloft, classic
+                    AIRMETs) appear only in the Weather panel, not on the map itself.
+                </div>
+
+                <h3>How FIS-B Works</h3>
+                <p>FIS-B (Flight Information Service - Broadcast) is a UAT datalink that Dynon SkyView broadcasts
+                    continuously on port 8384. GreatEFB receives and decodes this stream passively without making any
+                    network requests. FIS-B updates arrive roughly every 10 minutes for each product type (METAR, TAF,
+                    AIRMET, etc.), and coverage is typically strong within 100 nm of any ground station — but it has
+                    natural dead zones and can fade in remote areas or near terrain.</p>
+
+                <div class="callout">
+                    <strong>Key point:</strong> FIS-B is "push" — the broadcast reaches you without any action needed,
+                    but you only get what the nearest ground station is currently broadcasting. That set changes slowly
+                    (10-minute update cycles) and covers a fixed regional area, not your specific location.
+                </div>
+
+                <h3>How Ground Fetch Works</h3>
+                <p>When your tablet has Wi-Fi connectivity, GreatEFB automatically fetches the latest METAR, TAF,
+                    AIRMET/SIGMET, Winds Aloft, and NOTAMs from public aviation weather endpoints (primarily
+                    aviationweather.gov). A background worker runs this fetch every 15 minutes, filtering results to
+                    your current position (200 nm radius) and any active flight plan (25 nm corridor either side of
+                    course). This data is always current and nationwide, but <em>requires</em> Wi-Fi — if you lose
+                    connectivity, ground fetches stop.</p>
+
+                <div class="callout">
+                    <strong>Filtering:</strong> Ground fetch automatically excludes distant stations. A station 300 nm
+                    away won't appear, even if FIS-B happens to be broadcasting it. This keeps the list manageable and
+                    relevant to your flight.
+                </div>
+
+                <h3>Status Indicator (Green = OK, Red = Failing)</h3>
+                <p>Each weather mode displays a status line showing the last ground-fetch outcome:</p>
+                <ul>
+                    <li><strong><span class="status ok">Green</span></strong> — The most recent ground fetch succeeded.
+                        You're seeing current data from aviationweather.gov.</li>
+                    <li><strong><span class="status fail">Red</span></strong> — The ground fetch is currently failing or
+                        has not yet succeeded. You may still see FIS-B data if you're in range, but ground-sourced (and
+                        thus nationwide-sourced) products are unavailable.</li>
+                </ul>
+
+                <h3>Retry & Timing Model</h3>
+                <p>When a ground fetch succeeds, GreatEFB waits 15 minutes until the next normal update. If a fetch
+                    fails (network error, endpoint down, no GPS fix yet), GreatEFB automatically retries after 30
+                    seconds, then again if that fails, repeating this short retry cycle until the fetch succeeds. This
+                    means:</p>
+                <ul>
+                    <li>A temporary network glitch triggers a re-fetch within 30 seconds, not a 15-minute wait.</li>
+                    <li>Repeated failures (e.g., Wi-Fi down, unreachable endpoint) keep retrying every 30 seconds
+                        indefinitely, so as soon as connectivity returns, data loads.</li>
+                    <li>Successful fetches reset the timer to the normal 15-minute periodic schedule.</li>
+                </ul>
+
+                <h3>What Happens When Sources Disagree</h3>
+                <p>It's normal for FIS-B and ground fetch to show slightly different data for the same station. FIS-B
+                    may be broadcasting an older observation (10+ minutes behind), while ground fetch pulls the very
+                    latest. In practice:</p>
+                <ul>
+                    <li>METAR: ground fetch is nearly always newer. Ground data replaces FIS-B if both are present for
+                        the same station.</li>
+                    <li>TAF: less frequent updates; both sources often show the same forecast.</li>
+                    <li>AIRMET/SIGMET: both show active hazards, but the boundary polygons may differ slightly between
+                        FIS-B and ground sources.</li>
+                </ul>
+
+                <h3>Graphical AIRMETs (G-AIRMETs)</h3>
+                <p><strong>G-AIRMETs</strong> are forecasted graphical depictions of hazards (turbulence, icing,
+                    mountain obscuration) with explicit time-range validity and altitude restrictions. Unlike text
+                    AIRMETs (which are issued on a fixed schedule), G-AIRMETs are issued continuously and show
+                    polygon-shaped hazard areas with precise boundaries.</p>
+                <p>When viewing the Advisories mode in the Weather panel, you see both text AIRMETs (for classic
+                    convective hazards, wind shear, etc.) and G-AIRMET polygons (for moderate/severe turbulence, icing,
+                    and mountain obscuration). Each G-AIRMET hazard is colored by type — turbulence in one color, icing
+                    in another — and tap a polygon to see the detailed forecast text and altitude restrictions.</p>
+
+                <h3>Center Weather Advisories (CWAs)</h3>
+                <p><strong>Center Weather Advisories</strong> are issued by Air Route Traffic Control Centers (ARTCCs)
+                    to alert pilots of significant weather within their airspace. Unlike SIGMETs (which cover broader
+                    regions and are national in scope), CWAs are issued on a center-by-center basis and tend to be more
+                    localized and timely for IFR operations.</p>
+                <p>CWAs typically cover:</p>
+                <ul>
+                    <li>Moderate to severe turbulence</li>
+                    <li>Moderate to severe icing</li>
+                    <li>Wind shear hazards</li>
+                    <li>Rapidly developing weather (thunderstorms, frontal passages)</li>
+                </ul>
+                <p>In GreatEFB, CWAs appear in the Advisories panel alongside AIRMETs and SIGMETs. They're shown as text
+                    advisories with their issuing ARTCC center name and time range. Tap a CWA to see the full advisory
+                    text and any polygon geometry (if available).</p>
+
+                <h3>Staleness & Expiry</h3>
+                <p>Weather products age out based on their own validity windows or a project-wide staleness threshold
+                    (roughly 90 minutes for METAR, longer for TAF). Once stale, an entry is removed from the list. This
+                    prevents you from seeing old data without realizing it's obsolete.</p>
+
+                <h3>When You Have No GPS Fix</h3>
+                <p>If your aircraft position is unknown (no GPS lock yet), GreatEFB uses the last-known position
+                    (persisted on disk) to filter ground fetches. If there's no last-known position either (first ever
+                    run), a ground fetch is skipped entirely this cycle and re-attempted after 30 seconds — once a real
+                    GPS fix arrives, filtering works normally.</p>
+
+                <h3>Per-Airport Weather & NOTAMs</h3>
+                <p>Beyond the WX panel, you can tap any airport on the map to see its weather and NOTAMs directly
+                    without opening the full weather modes. This uses the same combined FIS-B + ground fetch logic, but
+                    scoped to just that airport.</p>
+
+                <h3>Colored Dot System (Flight Category Visualization)</h3>
+                <p>Each airport on the map displays a colored dot reflecting the latest METAR's flight category — a
+                    quick visual scan of your route's weather at a glance. The dots scale with zoom level, making them
+                    larger as you zoom in for easier reading. Each color represents a decision point:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dot Color</th>
+                            <th>Flight Category</th>
+                            <th>Ceiling Condition</th>
+                            <th>Visibility Condition</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background: #00E600; color: black;"><strong>Bright Green</strong></td>
+                            <td><code>VFR</code></td>
+                            <td>≥ 3,000 ft</td>
+                            <td>≥ 5 SM</td>
+                            <td>Visual flight minimums met</td>
+                        </tr>
+                        <tr>
+                            <td style="background: #0080FF; color: white;"><strong>Bright Blue</strong></td>
+                            <td><code>MVFR</code></td>
+                            <td>1,000–3,000 ft</td>
+                            <td>3–5 SM</td>
+                            <td>Marginal VFR</td>
+                        </tr>
+                        <tr>
+                            <td style="background: #FF0000; color: white;"><strong>Bright Red</strong></td>
+                            <td><code>LIFR</code></td>
+                            <td>&lt; 1,000 ft</td>
+                            <td>&lt; 3 SM</td>
+                            <td>Below VFR minimums</td>
+                        </tr>
+                        <tr>
+                            <td style="background: #808080; color: white;"><strong>Gray</strong></td>
+                            <td><code>—</code></td>
+                            <td>Unknown</td>
+                            <td>Unknown</td>
+                            <td>No current METAR or report has gone stale; airport not drawn on map but remains tappable
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>About the 3-Tier System:</strong> GreatEFB uses VFR/MVFR/LIFR, collapsing the traditional
+                    IFR tier into LIFR. This simplifies decision-making: red means "below VFR minimums, requires
+                    instrument rating," full stop. The logic is straightforward: if <em>either</em> ceiling is below
+                    1,000 ft <em>or</em> visibility is below 3 SM, the airport is red.
+                </div>
+
+                <h3>How Categories Are Derived</h3>
+                <p>The color is computed from the latest METAR's ceiling (lowest BKN/OVC layer) and prevailing
+                    visibility. The parsing is deliberately approximate — meant as a situational-awareness aid for
+                    scanning your route, not a substitute for reading the actual verbatim METAR text (which the WX panel
+                    shows in full). If a METAR is missing ceiling or visibility data entirely, that airport won't show a
+                    dot at all (no color assigned means no map-visual advantage over the underlying sectional).</p>
+
+                <h3>When Dots Disappear</h3>
+                <p>Airports without a current, fresh METAR don't display a dot — even though they remain tappable. This
+                    keeps the map clean and prevents gray dots from duplicating the airport symbols already shown on
+                    your sectional chart. A tap on a non-reporting airport is still possible (the airport itself is
+                    still visible on the chart), and the detail view will show "No METAR" rather than guessing with an
+                    outdated report.</p>
+
+                <div class="callout">
+                    <strong>Safety Note:</strong> When a NOTAM lookup fails for a specific airport, the app shows <span
+                        class="label">Unable to check NOTAMs -- do not assume none exist</span>. This is intentional —
+                    an unknown NOTAM status is never the same as "no NOTAMs." Always cross-check with an official
+                    briefing before flight.
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="terrain">
+                <h2><span class="section-number">6.</span> Terrain</h2>
+
+                <p>The <strong>Terrain Heatmap</strong> (Settings → Layers) overlays pre-baked elevation data,
+                    dynamically recolored in real time based on your aircraft's altitude. It uses a single tile set with
+                    runtime recoloring (no altitude buckets) and LRU caching for performance.</p>
+
+                <h3>Color Classification</h3>
+                <p>The heatmap displays three colors based on terrain elevation relative to your altitude:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Terrain Elevation Relative to Aircraft</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background: #FF0000; color: white;"><strong>Red</strong></td>
+                            <td>Within 500 ft above or below</td>
+                            <td><strong>Danger zone</strong> — collision risk if not cleared</td>
+                        </tr>
+                        <tr>
+                            <td style="background: #FFFF00; color: black;"><strong>Yellow</strong></td>
+                            <td>500–1000 ft below aircraft</td>
+                            <td><strong>Caution zone</strong> — terrain is rising toward you</td>
+                        </tr>
+                        <tr>
+                            <td style="background: none; color: gray;"><strong>Transparent</strong></td>
+                            <td>More than 1000 ft below aircraft</td>
+                            <td><strong>Safe</strong> — adequate clearance from terrain</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The transparency allows the base sectional chart to show through, so you can cross-check terrain
+                    hazards against labeled geography and airports.</p>
+
+                <h3>Data Source & Tile Format</h3>
+                <p>Terrain data comes from USGS 3DEP (3D Elevation Program) at 30-meter resolution, pre-processed into
+                    Web Mercator PNG tiles at zoom levels 8–11 (regional overview to detailed approach zones). Each tile
+                    is 256×256 pixels, with elevation encoded in the RED channel of grayscale image data:</p>
+
+                <ul>
+                    <li><strong>Encoding:</strong> Pixel value × (15,000 ft ÷ 255) = terrain elevation</li>
+                    <li><strong>Range:</strong> 0–15,000 ft (covers CONUS, including Mt. Whitney at 14,505 ft)</li>
+                    <li><strong>Format:</strong> PNG grayscale, single RED channel per pixel</li>
+                </ul>
+
+                <p>Tiles are generated once at build time (not on-device), so runtime performance is unconstrained — the
+                    app can recolor a full 3×3 viewport (9 tiles) in roughly 50 ms.</p>
+
+                <h3>Runtime Recoloring (How It Works)</h3>
+                <p>When you climb or descend, GreatEFB does not re-download tiles. Instead, it recolors the existing
+                    tiles based on your current altitude:</p>
+
+                <ol>
+                    <li><strong>Altitude change detected:</strong> If your altitude changes by more than 100 ft (roughly
+                        the resolution of a single tile), the recoloring pipeline triggers.</li>
+                    <li><strong>Clear cache:</strong> The 9-tile LRU cache is flushed to free memory.</li>
+                    <li><strong>Recolor on-demand:</strong> As you pan or zoom the map, each tile is loaded,
+                        re-evaluated against your new altitude, and recolored with the current red/yellow/transparent
+                        classification.</li>
+                    <li><strong>Layer swap:</strong> To avoid flicker, GreatEFB alternates between two layer pairs — one
+                        layer fades in while the other fades out — so the transition is smooth even as you move around
+                        the map.</li>
+                </ol>
+
+                <p><strong>Why this architecture?</strong> Pre-baking tiles (no device recomputation) keeps the app
+                    responsive. Runtime recoloring (not altitude-bucketed tiles) means your altitude thresholds are
+                    always current, and GreatEFB uses minimal storage — 7 regions × 9 zoom levels = roughly 5,000 tiles
+                    total at ~1.5 GB, not 10× that for multiple altitude buckets.</p>
+
+                <h3>Update Throttle & Caching</h3>
+                <p>The heatmap uses a 1-second / 100-ft throttle to avoid constant unnecessary recoloring:</p>
+                <ul>
+                    <li>Changes smaller than 100 ft don't trigger an update (normal cruise descent/climb is handled
+                        smoothly without flickering)</li>
+                    <li>Multiple altitude changes within 1 second are batched into a single recolor cycle</li>
+                    <li>The LRU cache holds 9 tiles (a 3×3 map viewport), reused as you scroll without re-fetching from
+                        disk</li>
+                </ul>
+
+                <p>This keeps recoloring work <em>and</em> tile I/O minimal during normal flight.</p>
+
+                <h3>Ground Suppression</h3>
+                <p>The terrain heatmap is automatically hidden when your groundspeed drops below 25 knots (taxiing,
+                    parked, or standing). At these speeds, terrain warnings are meaningless and only clutter the map.
+                    When you take off (groundspeed >25 kt), the heatmap resumes without requiring any action from you.
+                    This is separate from your user preference to toggle the layer on/off — landing doesn't reset your
+                    Settings.</p>
+
+                <h3>Airport Exclusion Zones</h3>
+                <p>GreatEFB suppresses terrain alerts within 2 nm and 500 ft of an airport's field elevation. This
+                    prevents false red-zone warnings from terrain slopes adjacent to the runway or natural terrain rises
+                    within the traffic pattern, where being several hundred feet above field elevation is normal and
+                    expected during approach/climb-out. The exclusion zone is computed per-airport in real time during
+                    recoloring, so overlapping zones around nearby fields correctly combine.</p>
+
+                <h3>Opacity Control</h3>
+                <p>A <strong>Terrain Opacity</strong> slider (Settings → Layers) controls the heatmap's transparency:
+                </p>
+                <ul>
+                    <li><strong>20%:</strong> Very subtle overlay; easy to see the chart beneath, harder to see terrain
+                        urgency</li>
+                    <li><strong>60% (default):</strong> Good balance — terrain hazards stand out without obscuring the
+                        chart</li>
+                    <li><strong>100%:</strong> Maximum opacity; terrain fills the display but chart detail is hard to
+                        read</li>
+                </ul>
+
+                <p>If you're in areas with rugged terrain, higher opacity makes hazards impossible to miss. In flatter
+                    terrain, lower opacity keeps the map less cluttered.</p>
+
+                <h3>Troubleshooting Terrain Issues</h3>
+
+                <p><strong>Heatmap not showing</strong></p>
+                <ul>
+                    <li>Confirm Settings → Layers → Terrain Heatmap is checked (enabled)</li>
+                    <li>Confirm your groundspeed is >25 kt (the heatmap is auto-suppressed on the ground)</li>
+                    <li>Confirm elevation tiles for your region have been downloaded via Data Management (terrain will
+                        show <code>Not cached</code> until synced)</li>
+                </ul>
+
+                <p><strong>Terrain appears garbled or colored strangely</strong></p>
+                <ul>
+                    <li>This is extremely rare and typically indicates corrupted tile files</li>
+                    <li>Try re-syncing your region via Data Management</li>
+                </ul>
+
+                <blockquote>
+                    <strong>Planned, not yet available:</strong> a side-view terrain/airspace corridor profile (similar
+                    to a Garmin VSD) is in design but not built. Today, terrain awareness is 2D-only (the heatmap above)
+                    — there is no vertical profile view.
+                </blockquote>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="traffic">
+                <h2><span class="section-number">7.</span> Traffic</h2>
+
+                <p>The <strong>Traffic (ADS-B/TIS-B)</strong> layer (on by default) displays nearby aircraft on the map,
+                    received from your Dynon SkyView avionics. Each target is shown as a colored triangle pointing in
+                    the aircraft's direction of travel, with a callsign or ICAO address and relative altitude label.</p>
+
+                <h3>Data Source: GDL90 Traffic Reports</h3>
+                <p>Traffic targets come from GDL90 Type 0x14 messages broadcast by SkyView at roughly 1 Hz per aircraft.
+                    These messages contain:</p>
+                <ul>
+                    <li><strong>ADS-B:</strong> Aircraft with functioning transponders broadcasting their own position
+                        and altitude (any Mode S aircraft within range)</li>
+                    <li><strong>TIS-B:</strong> Secondary surveillance radar targets provided by ground stations,
+                        filling in gaps for aircraft without ADS-B</li>
+                </ul>
+
+                <p>SkyView merges both sources into a single traffic stream, so GreatEFB sees a unified view. Coverage
+                    depends on your altitude, terrain, and proximity to radar/ADS-B infrastructure — typical range is
+                    10–50 nm depending on aircraft altitude and antenna quality.</p>
+
+                <h3>Target Display & Labels</h3>
+                <p>Each traffic target appears as a small triangle on the map. The triangle points in the direction the
+                    aircraft is traveling (track angle), and its color indicates status:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Triangle Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background: #0000FF; color: white;"><strong>Blue</strong></td>
+                            <td>Normal traffic — no proximity alert</td>
+                        </tr>
+                        <tr>
+                            <td style="background: #FF0000; color: white;"><strong>Red</strong></td>
+                            <td>Proximity alert — SkyView has flagged this target as being projected to enter your
+                                aircraft's protected zone (based on closure rate, time to closest approach, and
+                                altitude). GreatEFB is simply displaying SkyView's threat assessment; the threat volume
+                                calculation is done by your avionics, not by the app.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Above each triangle, you see a label with:</p>
+                <ul>
+                    <li><strong>Callsign or ICAO address:</strong> Callsign if available (e.g., "N12345"), or a 6-digit
+                        hex ICAO address (e.g., "A1B2C3") if no callsign is transmitted</li>
+                    <li><strong>Relative altitude:</strong> A signed value in hundreds of feet, relative to your
+                        aircraft (e.g., "+02" = 200 ft above, "–03" = 300 ft below). This uses pressure altitude for
+                        consistency with transponder altimetry</li>
+                    <li><strong>Trend arrow:</strong> A small triangle (▲ = climbing, ▼ = descending) if the target is
+                        moving vertically more than ~100 fpm (vertical speed); no arrow if level</li>
+                </ul>
+
+                <h3>Staleness & Auto-Removal</h3>
+                <p>Once a target is received, it stays on the map for 15 seconds without a fresh report. If SkyView
+                    doesn't hear from an aircraft for 15 seconds (out of range, landed, or communication lost), that
+                    target disappears from the map automatically. This keeps the display clutter-free and ensures you're
+                    not seeing stale, potentially incorrect positions.</p>
+
+                <h3>Self-Filtering & Ownship Echo</h3>
+                <p>When your own aircraft broadcasts via ADS-B, Dynon's ground station receiver may bounce your own
+                    transponder signal back to you as a TIS-B echo. To keep your own aircraft off the traffic display:
+                </p>
+
+                <ol>
+                    <li><strong>Automatic filtering (initial):</strong> When you first start GreatEFB with no aircraft
+                        profiles saved, it uses a GPS-proximity heuristic: if a target is within ~1 nm of your tablet's
+                        own GPS position, it's assumed to be your own echo and filtered out.</li>
+                    <li><strong>Explicit Mode S assignment (recommended):</strong> Once you create an aircraft profile
+                        in Settings → Aircraft → Manage Profiles, enter that aircraft's Mode S code (transponder ICAO
+                        address, a 6-digit hex number). GreatEFB will then filter by exact ICAO address match instead of
+                        proximity, which is more reliable.</li>
+                    <li><strong>Long-press override:</strong> If you see your own echo on the map and want to explicitly
+                        mark it as Ownship, long-press the target for 500 ms — a dialog offers <span class="label">Set
+                            as Ownship?</span>. GreatEFB will remember this ICAO address and filter it out on future
+                        sessions.</li>
+                </ol>
+
+                <p>Only one aircraft can be marked as Ownship at a time. If you try to set a second, GreatEFB will show
+                    <span class="label">Only One Ownship Allowed</span>.</p>
+
+                <h3>Tapping a Target for Details</h3>
+                <p>Tap any target (not a long-press) to open a detail dialog showing:</p>
+                <ul>
+                    <li><strong>Callsign:</strong> The aircraft's identifier</li>
+                    <li><strong>ICAO address:</strong> The Mode S/6-digit hex code</li>
+                    <li><strong>Altitude:</strong> Pressure altitude reported by the target (in feet)</li>
+                    <li><strong>Ground speed:</strong> Velocity across the ground (knots)</li>
+                    <li><strong>Vertical speed:</strong> Climb/descent rate (feet per minute)</li>
+                    <li><strong>Distance:</strong> Slant range from your aircraft (nautical miles)</li>
+                    <li><strong>Relative bearing:</strong> Compass direction from your aircraft (e.g., "traffic at your
+                        2 o'clock")</li>
+                    <li><strong>Alert flag:</strong> Whether this target triggered a collision alert on your avionics
+                    </li>
+                </ul>
+
+                <h3>Integration with Avionics</h3>
+                <p>GreatEFB's traffic display mirrors what your SkyView avionics are already showing — it's a map-based
+                    visualization of the same GDL90 data stream your panel is using. The alert status (red triangle)
+                    comes directly from SkyView's own alert logic, so if SkyView has flagged a target as a threat,
+                    GreatEFB shows it in red. Conversely, if you're seeing something on the map that doesn't match
+                    SkyView's display, it may be a stale or anomalous report that hasn't been received recently.</p>
+
+                <h3>Limitations</h3>
+                <ul>
+                    <li><strong>Coverage gaps:</strong> VFR altitudes, remote areas, and terrain-blocked regions may
+                        have no traffic visible even if aircraft are present</li>
+                    <li><strong>Display time lag:</strong> Reports arrive roughly 1 Hz per aircraft; position updates
+                        are delayed by SkyView's own processing (typically under 5 seconds)</li>
+                    <li><strong>Relative altitude accuracy:</strong> Based on transponder-reported pressure altitude,
+                        not GPS altitude — in non-standard atmospheric conditions, relative altitude may differ from
+                        true geometric separation</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="flight-planning">
+                <h2><span class="section-number">8.</span> Flight Planning</h2>
+
+                <p>The <strong>Flight Plan</strong> tab is a full-featured waypoint editor for building and navigating
+                    routes. It displays your planned route on the map as a magenta line with course/distance labels, and
+                    lets you define performance parameters for each leg.</p>
+
+                <h3>Adding Waypoints</h3>
+                <p>Tap <strong>+ Add Waypoint</strong> to search for and add a waypoint. The search accepts:</p>
+                <ul>
+                    <li><strong>Airport identifiers:</strong> KJFK, PDX, SFO (with or without leading "K")</li>
+                    <li><strong>City names:</strong> "Seattle" returns all airports in Seattle (KBFI, KSEA, KRNT, etc.);
+                        search works across all states in your loaded database</li>
+                    <li><strong>Navaids:</strong> SEA, OAK, SJC</li>
+                    <li><strong>Fixes:</strong> SHAKO, FLAPT, LEAPT</li>
+                </ul>
+
+                <p>Search is case-insensitive and looks across all loaded airport, navaid, and fix data. As you type,
+                    matching results appear, showing the identifier, city, and state for airports. Tap a result to add
+                    it as the next waypoint in your plan.</p>
+
+                <h3>Waypoint Management</h3>
+                <p>Once added, waypoints appear in order from top (departure) to bottom (destination). For each
+                    waypoint, you can:</p>
+                <ul>
+                    <li><strong>Move up/down:</strong> Reorder legs in your route</li>
+                    <li><strong>Delete:</strong> Remove a waypoint (requires confirmation)</li>
+                    <li><strong>Edit leg parameters:</strong> For each leg (segment between two waypoints), edit:
+                        <ul>
+                            <li><strong>Ground Speed (knots):</strong> Your expected GS for ETE/ETA calculations</li>
+                            <li><strong>Altitude (feet):</strong> Planned cruise altitude for this leg</li>
+                            <li><strong>Fuel Burn (gallons):</strong> Expected fuel consumption rate</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Route Display on the Map</h3>
+                <p>Your flight plan appears on the map as:</p>
+                <ul>
+                    <li><strong>Magenta line:</strong> The route connecting all waypoints in order</li>
+                    <li><strong>Waypoint markers:</strong> Small symbols at each waypoint location</li>
+                    <li><strong>Course/distance labels:</strong> A box along each leg showing:
+                        <ul>
+                            <li>Magnetic course (e.g., "045°M")</li>
+                            <li>Distance (e.g., "47 nm")</li>
+                        </ul>
+                        These labels automatically rotate to align with each leg as you pan/zoom the map.
+                    </li>
+                </ul>
+
+                <h3>Computed Leg Information</h3>
+                <p>For each leg, GreatEFB automatically computes:</p>
+                <ul>
+                    <li><strong>True course:</strong> Calculated from waypoint coordinates</li>
+                    <li><strong>Magnetic course:</strong> Converted using magnetic declination (WMM model)</li>
+                    <li><strong>Distance:</strong> Great-circle distance in nautical miles</li>
+                    <li><strong>ETE (Estimated Time Enroute):</strong> Based on your entered ground speed</li>
+                    <li><strong>ETA (Estimated Time of Arrival):</strong> Zulu time at destination, calculated from
+                        flight start time</li>
+                </ul>
+
+                <p>You can edit ground speed, altitude, and fuel burn per leg — these are your inputs for preflight
+                    planning and used by GreatEFB for ETA calculations.</p>
+
+                <h3>Plan Operations</h3>
+
+                <p><strong>Reverse Flight Plan:</strong> Reverses the entire route (useful for return flights).
+                    Waypoints swap order, and all calculations update immediately.</p>
+
+                <p><strong>Save Flight Plan:</strong> Saves your current route to the device's local database. Requires
+                    at least 2 waypoints. A dialog prompts for a name; GreatEFB suggests an auto-generated name based on
+                    departure and destination (e.g., "BLI_PDX_1"). You can edit this name or accept the suggestion. Once
+                    saved, the plan persists even after the app restarts.</p>
+
+                <p><strong>Load Flight Plan:</strong> Opens a list of previously saved plans. Tap a plan to load it,
+                    replacing your current working plan. Each saved plan shows its waypoint sequence; you can also
+                    delete a saved plan directly from this list (with confirmation).</p>
+
+                <p><strong>Clear Plan:</strong> Erases all waypoints from the current plan. This clears your work in the
+                    Flight Plan tab but does not delete any saved plans.</p>
+
+                <h3>Route-Based Data Fetching & Route Conditions</h3>
+                <p>When you modify your flight plan (add/remove/reorder waypoints), GreatEFB automatically refreshes
+                    route-based weather, PIREP, and advisory data. This means:</p>
+                <ul>
+                    <li>Weather (METAR, TAF, wind aloft) is re-fetched for stations along your new route (not just your
+                        current position)</li>
+                    <li>NOTAMs and advisories are checked for your planned corridor (25 nm either side of course)</li>
+                    <li>PIREPs and G-AIRMETs are filtered to your flight path</li>
+                </ul>
+
+                <p>This happens automatically without you needing to manually refresh — just edit your flight plan and
+                    the relevant data updates immediately.</p>
+
+                <h3>Route Conditions Button & Display</h3>
+                <p>The <strong>Route Conditions</strong> button in the Flight Plan tab opens a summary view of all
+                    weather and hazard data along your planned route. This complements the moving map's graphical layers
+                    by showing text-based products in one place.</p>
+
+                <p><strong>What's Displayed:</strong></p>
+                <ul>
+                    <li><strong>METAR:</strong> Observations from airports along your route, color-coded by flight
+                        category:
+                        <ul>
+                            <li><span style="color: #008C00;"><strong>Green</strong></span> = VFR (ceiling ≥3000 ft,
+                                visibility ≥5 SM)</li>
+                            <li><span style="color: #0080FF;"><strong>Blue</strong></span> = MVFR (ceiling 1000–3000 ft,
+                                visibility 3–5 SM)</li>
+                            <li><span style="color: #C80000;"><strong>Red</strong></span> = LIFR (ceiling &lt;1000 ft,
+                                visibility &lt;3 SM)</li>
+                        </ul>
+                    </li>
+                    <li><strong>TAF:</strong> Terminal area forecasts for route airports</li>
+                    <li><strong>PIREP:</strong> Pilot reports of turbulence, icing, sky conditions, and urgency flags
+                        along your route corridor</li>
+                    <li><strong>NOTAM:</strong> Notices to airmen, scoped to your route's airport waypoints only
+                        (departure, destination, and via airports) — not the entire route corridor, since corridor-wide
+                        NOTAMs would include irrelevant point obstructions along cruise altitudes</li>
+                    <li><strong>Footer Note:</strong> TFR, AIRMET/SIGMET, G-AIRMET, and CWA hazards are displayed
+                        graphically on the map and are not repeated in this text summary</li>
+                </ul>
+
+                <p>All stations and reports are sorted by their position along your route, not by raw distance to it —
+                    so a station near the destination appears in the order you'll encounter it, not just because it
+                    happens to sit closer to the course line.</p>
+
+                <h3>Caching Strategy</h3>
+                <p>Route Conditions uses a shared 5-minute cooldown to prevent redundant network requests:</p>
+                <ul>
+                    <li><strong>Trigger 1 — Dialog Opens:</strong> When you open Route Conditions, it fetches fresh data
+                        from 5 network endpoints (METAR/TAF, PIREP, G-AIRMET, CWA, NOTAM)</li>
+                    <li><strong>Trigger 2 — Flight Plan Changes:</strong> If you edit your flight plan while the dialog
+                        is open, a debounced refresh (100ms delay) re-fetches for the new route</li>
+                    <li><strong>Shared Cooldown:</strong> Both triggers share a 5-minute cooldown keyed by route
+                        identity (waypoint identifiers). If you switch between the Map tab and Route Conditions within 5
+                        minutes of the same route, the second trigger skips the fetch to avoid duplicate work. Different
+                        routes bypass the cooldown immediately</li>
+                    <li><strong>Why Shared?</strong> MapFragment also triggers a route-corridor refresh when you return
+                        from another tab. Without a shared cooldown, returning to the map after viewing Route Conditions
+                        would immediately re-fetch the same 5 endpoints again, defeating the point of the 5-minute
+                        window</li>
+                </ul>
+
+                <h3>Suspending a Flight Plan (Direct-To)</h3>
+                <p>While flying a flight plan, you can use the <strong>direct-to</strong> function to navigate directly
+                    to any point on the map. To do this:</p>
+                <ol>
+                    <li>Tap on any waypoint, airport, or other navigable point on the map</li>
+                    <li>In the detail box that appears, select the <strong>"Direct To"</strong> option</li>
+                </ol>
+
+                <p>When you select Direct To with an active flight plan loaded:</p>
+                <ul>
+                    <li>Your current flight plan is automatically <strong>suspended</strong> and saved</li>
+                    <li>A new direct-to plan is created with just that single destination</li>
+                    <li>The <strong>Resume Plan</strong> tab appears on the map, allowing you to restore your original
+                        plan when ready</li>
+                </ul>
+
+                <p>This workflow lets you temporarily break off from your original route for a diversion or other needs,
+                    then easily resume your planned route once the diversion is complete.</p>
+
+                <h3>Resume Plan Tab</h3>
+                <p>The <strong>Resume Plan</strong> tab appears only when you have a suspended flight plan. Selecting it
+                    shows a <span class="label">Suspended Flight Plan</span> dialog with three options:</p>
+                <ul>
+                    <li><strong>Resume:</strong> Restore your original plan and clear the direct-to plan</li>
+                    <li><strong>Discard:</strong> Permanently delete the suspended plan and clear the tab</li>
+                    <li><strong>Cancel:</strong> Return to the map without changing anything</li>
+                </ul>
+
+                <p>After choosing an action, you're returned to the Map tab. If no plan is currently suspended, this tab
+                    doesn't appear at all.</p>
+
+                <h3>Limitations & Notes</h3>
+                <ul>
+                    <li><strong>Minimum waypoints:</strong> A plan must have at least 2 waypoints to save (departure and
+                        destination)</li>
+                    <li><strong>Search scope:</strong> Waypoint search is limited to data that has been downloaded via
+                        Data Management. If a navaid or fix doesn't appear in search, it may not be in your local
+                        database.</li>
+                    <li><strong>Persistent storage:</strong> Flight plans are stored in GreatEFB's local app database,
+                        not synced to the cloud. Exporting/importing routes is not yet supported.</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="aircraft">
+                <h2><span class="section-number">9.</span> Aircraft Profiles</h2>
+                <p>Settings → Aircraft → <strong>Manage Profiles</strong> opens <strong>Aircraft Profiles</strong>, a
+                    full-screen list of saved aircraft. Each profile stores comprehensive data about one aircraft, used
+                    for ownship identification, flight planning, and preflight documentation.</p>
+
+                <h3>Profile List View</h3>
+                <p>The main screen shows all saved aircraft grouped by tail number. Each entry displays:</p>
+                <ul>
+                    <li>Tail number (e.g., "N12345")</li>
+                    <li>Aircraft type (e.g., "Cessna 172")</li>
+                    <li>PIC (Pilot in Command) name</li>
+                    <li>Cruise speed (knots)</li>
+                    <li>Usable fuel (gallons)</li>
+                    <li><span class="label">Ownship</span> badge (appears if this is your designated aircraft for
+                        traffic filtering)</li>
+                </ul>
+
+                <h3>Adding a New Aircraft</h3>
+                <p>Tap <strong>+ Add Aircraft</strong> to open the profile editor. You can populate as much or as little
+                    as you want — GreatEFB requires only the tail number:</p>
+                <ul>
+                    <li><strong>Tail Number:</strong> Your aircraft's registration (e.g., "N12345")</li>
+                    <li><strong>Aircraft Type:</strong> Model name (e.g., "Cessna 172")</li>
+                    <li><strong>PIC Name:</strong> Pilot in Command (your name)</li>
+                    <li><strong>PIC Contact Info:</strong> Phone/email for emergencies</li>
+                    <li><strong>Home Base:</strong> Your primary airport</li>
+                    <li><strong>Mode S Code:</strong> Your aircraft's transponder ICAO address (6-digit hex, e.g.,
+                        "A1B2C3"). Used to auto-identify your aircraft in the traffic display and filter out your own
+                        TIS-B echo.</li>
+                    <li><strong>Cruise Speed:</strong> Expected cruise airspeed in knots (used for ETE/ETA calculations
+                        in flight planning)</li>
+                    <li><strong>Usable Fuel:</strong> Gallons (used for flight planning fuel calculations)</li>
+                    <li><strong>Empty Weight:</strong> Aircraft empty weight (pounds)</li>
+                    <li><strong>Max Gross Weight:</strong> Maximum gross weight (pounds)</li>
+                    <li><strong>Fuel Endurance:</strong> Hours (burn rate derived from fuel and endurance)</li>
+                    <li><strong>Sink Rate:</strong> Best glide descent rate (feet per minute)</li>
+                    <li><strong>Wake Turbulence Category:</strong> Small / Large / Heavy (for flight plan filing)</li>
+                    <li><strong>Equipment Code:</strong> ICAO equipment designation. See ICAO 5-letter format below;
+                        used when filing flight plans or NOTAMs requiring your avionics capability string.</li>
+                    <li><strong>Surveillance Code:</strong> Transponder mode (Mode A/C, Mode S, ADS-B, etc.)</li>
+                    <li><strong>Other Notes:</strong> Any additional aircraft-specific information</li>
+                    <li><strong>Aircraft Icon:</strong> Visual representation on the map (plane, helicopter, etc.)</li>
+                </ul>
+
+                <h3>ICAO Equipment Codes</h3>
+                <p>The <strong>Equipment Code</strong> field uses a 5-character ICAO string (e.g., "SDE2E") to describe
+                    your avionics suite. This is used when filing flight plans or NOTAMs. Common codes include:</p>
+                <ul>
+                    <li><strong>D:</strong> DME (distance measuring equipment)</li>
+                    <li><strong>E:</strong> Mode C transponder with altitude reporting</li>
+                    <li><strong>S:</strong> Mode S transponder</li>
+                    <li><strong>L:</strong> ILS (instrument landing system) approach capable</li>
+                    <li><strong>A:</strong> VOR (navigational aid) equipped</li>
+                    <li><strong>G:</strong> GNSS (GPS) equipped</li>
+                    <li><strong>/:</strong> No transponder / basic equipment</li>
+                </ul>
+                <p>Consult your aircraft documentation or an AFD (Airport Facility Directory) entry for your aircraft's
+                    proper equipment code. This field is optional but recommended for completeness.</p>
+
+                <h3>Managing Profiles</h3>
+                <p><strong>Edit:</strong> Tap a profile to open the editor and modify any field.</p>
+
+                <p><strong>Mark as Ownship:</strong> Each profile has an <strong>Ownship</strong> toggle. Only one
+                    aircraft can be marked ownship at a time. When enabled:</p>
+                <ul>
+                    <li>That aircraft's Mode S code (if present) is used to filter out your TIS-B echo from the traffic
+                        display</li>
+                    <li>The profile shows an <span class="label">Ownship</span> badge in the profile list</li>
+                    <li>You can change ownship by toggling a different profile's ownship flag (the prior one is
+                        automatically unchecked)</li>
+                </ul>
+
+                <p><strong>Rename:</strong> Tap the rename icon to change the profile's display name (separate from the
+                    tail number stored in the profile).</p>
+
+                <p><strong>Delete:</strong> Tap the delete icon to remove a profile. A confirmation dialog appears
+                    before deletion.</p>
+
+                <h3>Ownship Assignment via Traffic</h3>
+                <p>You can also set ownship directly from the moving map by long-pressing a traffic target (see <a
+                        href="#moving-map">Moving Map → Ownship Symbol</a>). If no profile exists for that aircraft's
+                    ICAO code or tail number, GreatEFB creates a minimal profile automatically. You can then edit that
+                    profile here to add more details.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="data-management">
+                <h2><span class="section-number">10.</span> Data Management</h2>
+
+                <p>Settings → Downloads → <strong>Download Navigator</strong> opens the <strong>Regional Data
+                        Manager</strong>, a grid-based interface for managing charts, terrain, and navigation data. All
+                    data is synced from a local network server (not the internet), so GreatEFB works completely offline
+                    once downloaded.</p>
+
+                <h3>How the Data Server Works</h3>
+                <p>GreatEFB requires a companion data server running on your home network. This server is a Flask HTTP
+                    application (included in the GreatEFB distribution under
+                    <code>data_generation/Flask_update_server</code>) that:</p>
+                <ul>
+                    <li>Hosts pre-built regional data files (charts as MBTiles, elevation tiles, airports/navaids
+                        databases, airspace polygons)</li>
+                    <li>Advertises itself on the network using mDNS (so your tablet finds it without a hardcoded IP)
+                    </li>
+                    <li>Serves a JSON manifest for each region/data-type combination (list of files + timestamps)</li>
+                    <li>Allows tablets to download only the files that have changed since the last sync</li>
+                </ul>
+
+                <div class="callout">
+                    <strong>Prerequisites:</strong> Before you can download any data, you must have:
+                    <ul>
+                        <li>The Flask data server running on your home network (on a PC, Mac, or Linux machine)</li>
+                        <li>Your tablet on the same Wi-Fi network</li>
+                    </ul>
+                    If you don't have the server set up yet, see the server's own README in
+                    <code>data_generation/Flask_update_server</code> for setup instructions.
+                </div>
+
+                <h3>Server Discovery (mDNS)</h3>
+                <p>When you open the Data Manager, GreatEFB automatically searches for the data server via mDNS
+                    (multicast DNS) — a zero-configuration protocol that lets devices on the same network find each
+                    other by name rather than IP address. The server advertises itself as <code>_greatefb._tcp</code>,
+                    and GreatEFB's discovery looks for that service.</p>
+
+                <p><strong>Why mDNS?</strong> Home Wi-Fi routers hand out new IP addresses on every DHCP lease renewal.
+                    Rather than requiring you to enter the server's current IP (and re-enter it every time DHCP
+                    changes), mDNS lets the tablet find the server by name — it "just works" as long as the server is
+                    running and on the same network.</p>
+
+                <p>A <strong>Check Server</strong> button forces an immediate re-discovery. This is useful if you just
+                    started the server or switched networks.</p>
+
+                <h3>Status Indicator</h3>
+                <p>A status line at the top shows:</p>
+                <ul>
+                    <li><strong><span class="status ok">Server: OK</span></strong> (green) — mDNS discovery succeeded
+                        and the server is reachable. You can proceed with syncing.</li>
+                    <li><strong><span class="status fail">Server: Unreachable</span></strong> (red) — The tablet cannot
+                        find the server via mDNS. Confirm the server is running and both devices are on the same Wi-Fi
+                        network, then tap <strong>Check Server</strong> to retry.</li>
+                </ul>
+
+                <h3>The Sync Grid</h3>
+                <p>Below the status line is a grid of checkboxes, one for each combination of:</p>
+                <ul>
+                    <li><strong>6 data types:</strong> elevation (terrain tiles), charts (sectional/TAC/flyway MBTiles),
+                        airports, navaids, fixes, airspace</li>
+                    <li><strong>7 regions:</strong> NW, SW, NC, EC, NE, SC, SE (FAA Chart Supplement aligned)</li>
+                </ul>
+
+                <p>Each cell's color and label tell you the cache status:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cell Status</th>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Not cached</code></td>
+                            <td>Gray</td>
+                            <td>Not yet downloaded. Syncing this cell will fetch all files for that region/type.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Up to date</code></td>
+                            <td>Green</td>
+                            <td>Downloaded and matches the server's latest version. Syncing will skip it (no re-download
+                                needed).</td>
+                        </tr>
+                        <tr>
+                            <td><code>Out of date</code></td>
+                            <td>Orange</td>
+                            <td>Downloaded but the server has a newer version. Syncing will re-download changed files
+                                only.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Unknown</code></td>
+                            <td>Blue-gray</td>
+                            <td>Server is unreachable or was unreachable when last checked. Status cannot be determined.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>How Sync Works (Manifest-Based Deduplication)</h3>
+                <p>When you tap <strong>GO</strong> to sync, GreatEFB does not blindly re-download everything. Instead:
+                </p>
+
+                <ol>
+                    <li><strong>Fetch the manifest:</strong> For each selected region/data-type, download a JSON
+                        manifest file listing all files, their sizes, and timestamps.</li>
+                    <li><strong>Compare timestamps:</strong> For each file in the manifest, check if a local copy exists
+                        and whether the local file is older than the server version.</li>
+                    <li><strong>Download only changed files:</strong> Download only files that don't exist locally or
+                        are older than the server version. Unchanged files are skipped entirely.</li>
+                    <li><strong>Update cache status:</strong> Once all files for a region/type are successfully
+                        downloaded, mark that cell as <code>Up to date</code> and remember the server's timestamp.</li>
+                </ol>
+
+                <p>This "delta sync" approach means re-syncing an already-current region is fast — only truly new or
+                    modified files transfer.</p>
+
+                <div class="callout">
+                    <strong>Partial Sync Safety:</strong> If a sync is interrupted mid-region (e.g., connection drop),
+                    GreatEFB does NOT mark that region as up-to-date. The next sync attempt will re-check and
+                    re-download any missing files, so you won't be left with a silently-incomplete dataset.
+                </div>
+
+                <h3>Storage & Persistence</h3>
+                <p>Downloaded data is stored in GreatEFB's app-private storage on your tablet (typically under
+                    <code>/data/data/com.oddharmonic.greategfb</code> or similar, depending on device):</p>
+                <ul>
+                    <li><strong>Charts:</strong> MBTiles files (one per chart, 50–90 MB each) stored flat in
+                        <code>charts_mbtiles/</code></li>
+                    <li><strong>Elevation:</strong> Terrain tiles (PNG, RED-channel encoded) in
+                        <code>elevation_tiles_prebaked/</code></li>
+                    <li><strong>Airports/Navaids/Fixes:</strong> SQLite or JSON databases, organized by region in
+                        <code>airports_data/</code>, etc.</li>
+                    <li><strong>Airspace:</strong> GeoJSON polygons, organized by region in <code>airspace_data/</code>
+                    </li>
+                </ul>
+
+                <p>All files are cached persistently — if you kill and restart the app, the data is still there and
+                    ready to use, even without network connectivity.</p>
+
+                <h3>Sync Selection & Progress</h3>
+                <ul>
+                    <li>Check the cells you want to sync</li>
+                    <li>The <strong>"Selected: N items"</strong> counter shows how many region/type combinations you've
+                        picked</li>
+                    <li>Tap <strong>GO</strong> to start the sync; a progress bar shows which file is downloading and
+                        overall progress</li>
+                    <li>Tap <strong>Clear</strong> to deselect everything at once</li>
+                </ul>
+
+                <p>Syncs typically complete in minutes for a single region (depending on data size and network speed).
+                    Large regions like SW (Arizona, California, Nevada, Utah, Colorado, New Mexico) with all data types
+                    can take longer.</p>
+
+                <h3>Troubleshooting Sync Failures</h3>
+
+                <p><strong>Server: Unreachable</strong></p>
+                <ul>
+                    <li>Confirm the data server is running on your PC/Mac/Linux machine</li>
+                    <li>Confirm both your tablet and server are on the same Wi-Fi network</li>
+                    <li>Tap <strong>Check Server</strong> to retry discovery</li>
+                    <li>If problems persist, check the server's own logs (see its README)</li>
+                </ul>
+
+                <p><strong>Sync hangs or downloads very slowly</strong></p>
+                <ul>
+                    <li>Chart files (50–90 MB) can take 1–2 minutes each on slower Wi-Fi (5 Mbps or less)</li>
+                    <li>If a download gets stuck, the app will time out and retry — this is normal for large files on
+                        congested networks</li>
+                    <li>If repeated retries fail, check your Wi-Fi signal strength and router logs</li>
+                </ul>
+
+                <p><strong>Cell shows "Unknown" after server is running</strong></p>
+                <ul>
+                    <li>The status was cached the last time the server was unreachable</li>
+                    <li>Tap <strong>Check Server</strong> to refresh the cache</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="settings">
+                <h2><span class="section-number">11.</span> Settings</h2>
+                <p>The Settings dialog (⚙ on the map) controls map display, data sources, and app behavior. All settings
+                    persist across restarts.</p>
+
+                <h3>Data Source</h3>
+                <p>Choose where GreatEFB gets your position and attitude data:</p>
+                <ul>
+                    <li><strong>Dynon SkyView</strong> (default) — Uses UDP data from your avionics on ports 49155 and
+                        8384. Requires your tablet to be on the same network as SkyView.</li>
+                    <li><strong>Tablet GPS</strong> — Uses your tablet's built-in GPS receiver instead. First use will
+                        prompt for location permission. Provides position only; altitude and heading come from the
+                        tablet's sensors.</li>
+                </ul>
+                <p>The app remembers your last choice and restores it on restart.</p>
+
+                <h3>Layers</h3>
+                <p>Toggle individual map overlays on and off:</p>
+                <ul>
+                    <li><strong>Class B/C/D/E Airspace:</strong> Vector airspace outlines showing controlled airspace
+                        boundaries. Class E is off by default (less cluttered for VFR operations).</li>
+                    <li><strong>Airport Identifiers:</strong> Text labels showing airport codes (off by default to
+                        reduce map clutter; tap an airport to see its full information).</li>
+                    <li><strong>Chart Layer:</strong> The base sectional/TAC chart (on by default; required for visual
+                        reference).</li>
+                    <li><strong>Navaids:</strong> VOR, NDB, and other radio navigation aids (off by default).</li>
+                    <li><strong>Fixes:</strong> Named waypoint fixes (off by default).</li>
+                    <li><strong>Traffic (ADS-B/TIS-B):</strong> Nearby aircraft (on by default).</li>
+                    <li><strong>NEXRAD Radar:</strong> Weather radar overlay (requires either regional radar data to be
+                        downloaded OR FIS-B data available).</li>
+                    <li><strong>TFRs:</strong> Temporary flight restrictions shown as polygons on the map (on by
+                        default).</li>
+                    <li><strong>Terrain Heatmap:</strong> Elevation data with runtime recoloring. Includes an opacity
+                        slider (20–100%) to balance hazard visibility against chart readability. Automatically
+                        suppressed when groundspeed drops below 25 knots (taxiing/parked).</li>
+                </ul>
+
+                <h3>Airport Types</h3>
+                <p>Filter which airport classes appear on the map:</p>
+                <ul>
+                    <li><strong>Aerodrome:</strong> Conventional airports (on by default).</li>
+                    <li><strong>Heliport:</strong> Helicopter landing zones (on by default).</li>
+                    <li><strong>Seaplane Base:</strong> Water landing areas (off by default).</li>
+                    <li><strong>Ultralight:</strong> Ultralight strips (off by default).</li>
+                </ul>
+
+                <h3>Debug</h3>
+                <p><em>Advanced diagnostic tools, not for normal flight use. These are disabled by default.</em></p>
+                <ul>
+                    <li><strong>GPS Debug Display:</strong> Shows your tablet's raw GPS position, accuracy, and fix
+                        quality as an overlay on the map.</li>
+                    <li><strong>Dynon Datastreams:</strong> Real-time display of parsed ADAHRS (attitude/heading), GPS,
+                        and system data as received from SkyView.</li>
+                    <li><strong>Network (UDP Relay):</strong> Shows whether this app instance is the relay (PRIMARY,
+                        receiving real UDP traffic) or a follower, plus packet rates per port. Useful for
+                        troubleshooting network connectivity.</li>
+                    <li><strong>Stop Ground Updates (FIS-B Playback Testing):</strong> Halts the background weather
+                        fetch worker, useful for replaying captured FIS-B data without interference from live ground
+                        updates.</li>
+                    <li><strong>Clear Weather + TFR Data (Debug):</strong> Wipes all cached weather and TFR data from
+                        memory and storage. Used for testing data restoration flows.</li>
+                </ul>
+
+                <h3>Aircraft</h3>
+                <p><strong>Manage Profiles:</strong> Opens the <a href="#aircraft">Aircraft Profiles</a> screen where
+                    you can add, edit, rename, or delete saved aircraft. Each profile stores your aircraft's type, tail
+                    number, cruise speed, fuel capacity, and other performance data used for flight planning and ownship
+                    identification.</p>
+
+                <h3>Downloads</h3>
+                <p><strong>Download Navigator:</strong> Opens the <a href="#data-management">Regional Data Manager</a>
+                    for syncing charts, terrain, and navigation data from your local network server. This is where you
+                    download the offline data required before every flight.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="troubleshooting">
+                <h2><span class="section-number">12.</span> Troubleshooting</h2>
+
+                <h3>No Aircraft Symbol / No Movement on the Map</h3>
+                <ul>
+                    <li>Confirm your tablet is on the same network as SkyView (or its relay).</li>
+                    <li>Open Settings → Debug and enable <strong>Network (UDP Relay)</strong> — it shows whether this
+                        app instance is the relay (PRIMARY) or a follower, and the current packet rate per port. Zero
+                        packets means no data is arriving on that network.</li>
+                    <li>Enable <strong>Dynon Datastreams</strong> to see the raw parsed ADAHRS/GPS/system values as they
+                        update.</li>
+                </ul>
+
+                <h3>Charts, Terrain, or Airspace Not Loading</h3>
+                <ul>
+                    <li>Go to Data Management and check the server status line. <code>Server: Unreachable</code> means
+                        your tablet can't find the local data server via mDNS — confirm it's running and on the same
+                        network.</li>
+                    <li>Check whether the relevant region/data-type cell shows <code>Not cached</code> — it needs to be
+                        synced at least once before it will render.</li>
+                </ul>
+
+                <h3>Weather/NOTAM Panel Showing Red Status Line</h3>
+                <p>This means the ground (Wi-Fi) fetch is currently failing; GreatEFB retries every 30 seconds
+                    automatically. You may still see data if you're receiving FIS-B over the air.</p>
+
+                <h3>NOTAM Section Shows "Unable to Check NOTAMs"</h3>
+                <p>This is a deliberate safety message, not an error to dismiss — it means the app could not confirm the
+                    absence of NOTAMs for that airport, not that there are none.</p>
+
+                <h3>No Connection Indicator for SkyView</h3>
+                <p>Known current limitation — there is no dedicated connection-status indicator yet. Use the Debug
+                    overlays above as the practical substitute.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="appendix">
+                <h2><span class="section-number">13.</span> Appendix</h2>
+
+                <h3>SkyView UDP Ports</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Port</th>
+                            <th>Format</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>49155</td>
+                            <td>ASCII</td>
+                            <td><code>!1</code> ADAHRS, <code>!2</code> System, <code>!3</code> EMS</td>
+                        </tr>
+                        <tr>
+                            <td>8384</td>
+                            <td>Protobuf</td>
+                            <td>Type 2 GPS, Type 3 ADAHRS</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Regions (FAA Chart Supplement Aligned)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NW</td>
+                            <td>WA, OR, ID, MT, WY</td>
+                        </tr>
+                        <tr>
+                            <td>SW</td>
+                            <td>AZ, CA, CO, NM, NV, UT</td>
+                        </tr>
+                        <tr>
+                            <td>NC</td>
+                            <td>ND, SD, MN, NE, IA, MO, KS</td>
+                        </tr>
+                        <tr>
+                            <td>EC</td>
+                            <td>IL, IN, MI, OH, WI</td>
+                        </tr>
+                        <tr>
+                            <td>NE</td>
+                            <td>CT, DE, MA, MD, ME, NH, NJ, NY, PA, VA, VT, WV</td>
+                        </tr>
+                        <tr>
+                            <td>SC</td>
+                            <td>AR, LA, MS, OK, TX</td>
+                        </tr>
+                        <tr>
+                            <td>SE</td>
+                            <td>AL, FL, GA, KY, NC, SC, TN</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Data Types</h3>
+                <p>Synced per region: elevation, charts, airports, navaids, fixes, airspace</p>
+
+                <h3>Weather Panel Modes</h3>
+                <p>METAR/TAF, Winds Aloft, Advisories (AIRMET/SIGMET/SUA/CWA), NEXRAD Status, TFR Keyword Search, TFR
+                    Graphic Overlay, NOTAMs (FIS-B + NMS-API)</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <div class="footnote">
+                <strong>Manual Status:</strong> This comprehensive user manual covers all major sections of GreatEFB
+                with detailed explanations of architecture, system behavior, and user interactions. Content verified
+                against running app and source code as of 2026-07-24.
+            </div>
+        </main>
+    </div>
+
+    <script>
+        /**
+         * WEATHER SYSTEM ARCHITECTURE (for reference -- this manual itself is static HTML,
+         * but the architecture it documents is complex):
+         *
+         * GreatEFB's weather pipeline is a two-source, async-merge system:
+         *
+         * 1. FIS-B (Dynon port 8384 / GDL90 format)
+         *    - Pushed to the app continuously from Dynon SkyView
+         *    - Updates every ~10 minutes per product type
+         *    - Coverage: ~100 nm radius from ground stations
+         *    - Data: decoded on-board without external calls
+         *    - Decoding: GDL90METAR, GDL90TAF, GDL90Advisory (AIRMET/SIGMET), GDL90Pirep, etc.
+         *    - See DynonStreamManager.kt for the flow pipeline
+         *
+         * 2. Ground Fetch (aviationweather.gov + FAA NMS API)
+         *    - Triggered by WorkManager every 15 minutes (configurable)
+         *    - On-failure: retries every 30 seconds flat (fast escalation, no exponential backoff)
+         *    - Requires: Wi-Fi/network connectivity
+         *    - Filtering: position-based (200 nm radius) + route-corridor (25 nm either side)
+         *    - See WeatherUpdateWorker.kt & WeatherRepository.kt
+         *
+         * Merge & Deduplication (WeatherState.kt):
+         *    - Both sources feed the same update(key, product) mechanism
+         *    - Products are keyed by report type + station identifier
+         *    - Newer ground data (for METAR) replaces stale FIS-B entries
+         *    - TAF/Advisories: kept separate (may show both if timestamps differ)
+         *    - Staleness pruning: on every update(), remove entries older than threshold
+         *      (METAR ~90 min, TAF uses parsed valid_time_to, Advisories use their own validity)
+         *
+         * Status Tracking (FetchStatusTracker.kt):
+         *    - Independent per FetchType enum: METAR, TAF, WINDS_ALOFT, AIRMET_SIGMET, etc.
+         *    - Records: lastAttemptMs, lastSuccessMs, lastErrorMs
+         *    - UI displays: green if lastSuccessMs >= lastErrorMs, red otherwise
+         *    - Never attempted at all = green (no data yet ≠ "we tried and failed")
+         *
+         * Persistence (Room DAO / WeatherRecordEntity):
+         *    - METAR, TAF, Winds Aloft persisted to Room DB (AIRMET/SIGMET not yet persisted)
+         *    - App restart shows last-known products immediately instead of blank screen
+         *    - Restore-time merge: prevents re-fetches from clobbering live data during startup
+         *    - Staleness check at restore: removes entries older than METAR_MAX_AGE_MS, etc.
+         *    - TAF/Advisories: validToMs parsed and stored, allowing precise expiry even when offline
+         */
+
+        // Sidebar navigation active state
+        const links = document.querySelectorAll('.sidebar-nav a');
+        const sections = document.querySelectorAll('section');
+
+        function updateActiveLink() {
+            const scrollPosition = window.scrollY;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    links.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`a[href="#${section.id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Link clicks
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
