@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreatEFB — Experimental Aircraft EFB</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --accent-blue: #1e3a5f;
+            --accent-green: #2a5f2f;
+            --border-color: #e0e0e0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1f1f1f;
+                --bg-secondary: #2a2a2a;
+                --text-primary: #f0f0f0;
+                --text-secondary: #b8b8b8;
+                --accent-blue: #4e6a9f;
+                --accent-green: #5a9f5f;
+                --border-color: #404040;
+            }
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #e0e0e0;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #1f1f1f;
+            --bg-secondary: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --border-color: #404040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .page {
+            max-width: 8.5in;
+            height: 11in;
+            margin: 20px auto;
+            padding: 40px;
+            background: var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media print {
+            .page { box-shadow: none; margin: 0; }
+            body { background: var(--bg-primary); }
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #2d5a8f 100%);
+            padding: 16px;
+            border-radius: 8px;
+            margin: -40px -40px 0 -40px;
+            padding: 24px 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .highlight-box {
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-green);
+            background: linear-gradient(135deg, rgba(42, 95, 47, 0.08) 0%, rgba(30, 58, 95, 0.04) 100%);
+        }
+
+        .highlight-box:nth-child(odd) {
+            border-left-color: var(--accent-blue);
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.08) 0%, rgba(42, 95, 47, 0.04) 100%);
+        }
+
+        .highlight-box h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .highlight-box:nth-child(odd) h3 {
+            color: var(--accent-blue);
+        }
+
+        .highlight-box p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .section {
+            margin: 8px 0;
+        }
+
+        .section h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-green) 100%);
+            margin: 0 -40px 6px -40px;
+            padding: 8px 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li {
+            list-style: none;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .specs {
+            padding: 0;
+            border-radius: 6px;
+            font-size: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(42, 95, 47, 0.12) 0%, rgba(42, 95, 47, 0.04) 100%);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .spec-item:nth-child(odd) {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.12) 0%, rgba(30, 58, 95, 0.04) 100%);
+            border-left-color: var(--accent-blue);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--accent-green);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 3px;
+        }
+
+        .spec-item:nth-child(odd) .spec-label {
+            color: var(--accent-blue);
+        }
+
+        .spec-value {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .page {
+                height: auto;
+                padding: 20px;
+            }
+            .highlights, .feature-list, .specs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>GreatEFB</h1>
+            <p class="tagline">Moving Map Electronic Flight Bag for Experimental Aircraft</p>
+        </header>
+
+        <div class="highlights">
+            <div class="highlight-box">
+                <h3>Real-Time Flight Data</h3>
+                <p>Tablet GPS provides position and altitude<sup>*</sup>. Add Dynon SkyView for magnetic heading, accurate pressure altitude, and live traffic data.</p>
+            </div>
+            <div class="highlight-box">
+                <h3>Integrated Flight Planning</h3>
+                <p>Create and edit flight plans, with automatic weather and NOTAM retrieval along your route.</p>
+            </div>
+            <div class="highlight-box">
+                <h3>Comprehensive Weather</h3>
+                <p>FIS-B (over-the-air) and ground-fetch weather: METAR, TAF, PIREP, AIRMET, SIGMET, G-AIRMET, CWA.</p>
+            </div>
+            <div class="highlight-box">
+                <h3>Terrain Awareness</h3>
+                <p>Real-time elevation tiles with aircraft-altitude-based color coding — red for hazard, yellow for caution.</p>
+            </div>
+            <div class="highlight-box">
+                <h3>Traffic Display</h3>
+                <p>ADS-B and TIS-B traffic with alert status, relative bearing, altitude, and distance from your aircraft.</p>
+            </div>
+            <div class="highlight-box">
+                <h3>Offline Capability</h3>
+                <p>Download charts, terrain, and airspace data to your tablet — no internet required in flight.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Built-In Features</h2>
+            <ul class="feature-list">
+                <li>Manual data sync for charts, terrain, airspace, airports (requires internet connection)</li>
+                <li>Sectional, TAC, and flyway charts</li>
+                <li>Class B/C/D/E airspace with vector outlines</li>
+                <li>Airport detail sheets with runways & frequencies</li>
+                <li>Navaids and instrument fixes</li>
+                <li>TFRs with linked NOTAM text</li>
+                <li>Direct-to waypoint navigation</li>
+                <li>Rubber-band waypoint editing in-flight</li>
+                <li>Heading, track, groundspeed, altitude display</li>
+            </ul>
+        </div>
+
+        <div class="specs">
+            <div class="spec-item">
+                <span class="spec-label">Platform</span>
+                <span class="spec-value">Android tablets with GPS (portrait & landscape)</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Min SDK</span>
+                <span class="spec-value">Android 7.0 (API 24)</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Avionics (Optional but recommended)</span>
+                <span class="spec-value">Dynon SkyView with WiFi module</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Data Sources</span>
+                <span class="spec-value">FIS-B + aviationweather.gov</span>
+            </div>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-secondary); background: rgba(30, 58, 95, 0.06); border-left: 4px solid var(--accent-blue); padding: 8px 10px; margin: 8px 0; border-radius: 4px;">
+            <p><sup>*</sup> Some tablets have built-in magnetic compasses, but GreatEFB does not use them due to calibration challenges in aircraft environments where magnetic interference is common.</p>
+        </div>
+
+        <footer>
+            GreatEFB is for VFR use only. Always conduct thorough preflight weather briefings and flight planning. Not a replacement for certified avionics or flight planning procedures.
+        </footer>
+    </div>
+
+    <script>
+        // Light/dark theme toggle support
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        function updateTheme() {
+            if (prefersDark.matches) {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        }
+        updateTheme();
+        prefersDark.addListener(updateTheme);
+    </script>
+</body>
+</html>
