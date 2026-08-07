@@ -27,7 +27,7 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#1f6feb;">&#127919;</div>
     <h1>Approach Trainer</h1>
-    <p class="tagline">A synthetic approach procedure trainer integrated into the SkyView Android app ecosystem. Uses live avionics data from Dynon SkyView to compute real-time approach guidance to user-defined practice points.</p>
+    <p class="tagline">Realtime approach practice using live avionics data from Dynon SkyView or the Approach Trainer Companion Bluetooth module. Learn on simplified approach plates with guidance to your own practice procedures.</p>
     <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
   </div>
 </section>
@@ -35,14 +35,15 @@
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it does</h2>
-    <p>Approach Trainer lets a pilot fly synthetic instrument approach procedures anywhere, without needing to be near a real published approach. It reads live GPS and attitude data from the SkyView avionics stream and computes course, glidepath, and timing guidance to a practice procedure defined by the pilot.</p>
+    <p>Approach Trainer lets a pilot practice synthetic instrument approach procedures anywhere. Define a custom approach procedure, then fly it using live GPS and altitude data &mdash; either from Dynon SkyView, or from your tablet's built-in GPS paired with the <a href="approach-trainer-companion.html">Approach Trainer Companion</a> module for altitude. The app computes real-time guidance (course, glidepath, timing) and displays it on a simplified approach plate designed for learning and practice.</p>
 
     <h2>Highlights</h2>
     <ul>
-      <li>Real-time approach guidance computed from live SkyView GPS/ADAHRS data</li>
-      <li>Renders standard IFR approach plate symbology for visual realism</li>
-      <li>Flight tested in the actual aircraft, with results tracked over multiple sessions</li>
-      <li>Shares the SkyView UDP data stream with sibling apps (GreatEFB, EFISDisplay, SFD_Android) running on the same tablet</li>
+      <li>Real-time approach guidance from Dynon SkyView or Approach Trainer Companion Bluetooth module</li>
+      <li>Simplified approach plates designed for learning and practice (not a full chart rendering)</li>
+      <li>Define custom practice procedures anywhere &mdash; no published approaches needed</li>
+      <li>Flight tested in the actual aircraft with results tracked over multiple sessions</li>
+      <li>When paired with SkyView, shares the UDP data stream with sibling apps (GreatEFB, EFISDisplay, SFD_Android) running on the same tablet</li>
     </ul>
 
     <h2>Documentation</h2>
@@ -52,8 +53,8 @@
 
     <div class="detail-meta">
       <div><strong>Platform</strong>Android (Kotlin)</div>
-      <div><strong>Data source</strong>Dynon SkyView UDP</div>
-      <div><strong>Status</strong>Actively flight tested</div>
+      <div><strong>Data source</strong>Dynon SkyView UDP or Approach Trainer Companion (Bluetooth)</div>
+      <div><strong>Purpose</strong>Practice and learning</div>
     </div>
   </div>
 </section>
