@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApproachTrainer User Manual</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #d9d9d9;
+            --accent-blue: #1e3a5f;
+            --accent-green: #2a5f2f;
+            --caution-amber: #b8860b;
+            --status-red: #c41e3a;
+            --status-green: #2a8f2a;
+            --status-gray: #6b7280;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1f1f1f;
+                --bg-secondary: #2a2a2a;
+                --text-primary: #f0f0f0;
+                --text-secondary: #b8b8b8;
+                --border-color: #404040;
+                --accent-green: #5a9f5f;
+                --accent-blue: #4e6a9f;
+                --caution-amber: #d4a940;
+                --status-red: #e74c3c;
+                --status-green: #5fa85f;
+            }
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #d9d9d9;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #1f1f1f;
+            --bg-secondary: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --border-color: #404040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin: 0;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-primary);
+            color: var(--accent-blue);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-primary);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent-blue);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .preamble {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin: 16px 0 24px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 32px 0;
+        }
+
+        section {
+            margin-bottom: 32px;
+        }
+
+        section > h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-number {
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .callout {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-blue);
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .callout.caution {
+            border-left-color: var(--caution-amber);
+        }
+
+        .callout.caution strong {
+            color: var(--caution-amber);
+        }
+
+        .callout strong {
+            color: var(--accent-blue);
+        }
+
+        .label {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        code {
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 16px 0;
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            padding: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 200px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media print {
+            .sidebar {
+                display: none;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">Navigation</div>
+            <ul class="sidebar-nav">
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#screen-layout">Screen Layout</a></li>
+                <li><a href="#creating-approach">Creating an Approach</a></li>
+                <li><a href="#approach-types">Approach Types</a></li>
+                <li><a href="#ils-practice">ILS Practice Mode</a></li>
+                <li><a href="#flying">Flying the Approach</a></li>
+                <li><a href="#hardware">Hardware Companion</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#appendix">Appendix</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1>ApproachTrainer User Manual</h1>
+            <p class="subtitle">Practice tool for flying instrument approaches with live Dynon SkyView data</p>
+
+            <p class="preamble">
+                This manual assumes you already understand ILS, localizer, VOR, and NDB approach concepts. It explains how ApproachTrainer simulates guidance from live Dynon SkyView data — it does not teach instrument procedures.
+            </p>
+
+            <div class="divider"></div>
+
+            <section id="intro">
+                <h2><span class="section-number">1.</span> Introduction</h2>
+
+                <div class="callout caution">
+                    <strong>⚠️ VFR CONDITIONS ONLY — THIS IS A SIMULATION, NOT A NAVIGATION SOURCE.</strong>
+                    <p style="margin-top: 8px;">ApproachTrainer synthesizes CDI and glideslope guidance from GPS and avionics data. It is <strong>never</strong> to be used in IFR conditions or without a safety pilot aboard, and it is not a substitute for real instrument training. This caution is displayed on every profile-creation screen in the app.</p>
+                </div>
+
+                <p>ApproachTrainer is a practice tool for flying instrument approaches using live Dynon SkyView data, without needing an actual approach in range or a certified nav source. It synthesizes localizer/glideslope (or VOR/NDB) guidance from your GPS position relative to a threshold you define, and displays it on HSI/VOR-style gauges plus plan and profile views.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="requirements">
+                <h2><span class="section-number">2.</span> Requirements</h2>
+
+                <h3>Network</h3>
+                <p>Your tablet must be on the same network as SkyView (or its relay). ApproachTrainer listens automatically for the data feed — no IP address entry needed.</p>
+
+                <h3>Live Data Sources</h3>
+                <p>Two mutually-exclusive data sources are available, both require their own set of data fields:</p>
+                <ul>
+                    <li><strong>SkyView active (Dynon UDP):</strong> latitude, longitude, ground speed, magnetic track, magnetic heading, indicated altitude (with pressure altitude + baro setting), and heading bug. If any are missing, guidance won't compute.</li>
+                    <li><strong>ESP32 knob companion:</strong> OBS and altitude-trim knobs with onboard barometer. Position comes from the tablet's built-in GPS. No magnetometer — the pilot flies their own panel compass. Gauge selection is limited to VOR/CDI only (HSI requires heading source).</li>
+                </ul>
+
+                <h3>Other Requirements</h3>
+                <ul>
+                    <li><strong>Permissions:</strong> Internet and location access required. Storage access needed on Android 9 and below for saving logs.</li>
+                    <li><strong>Magnetic variation:</strong> Computed automatically — no setup needed.</li>
+                    <li><strong>Connection status:</strong> No built-in indicator on main screens. Use Settings → <span class="label">Debug</span> → <span class="label">Datastream Debug</span> to confirm data flow.</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="screen-layout">
+                <h2><span class="section-number">3.</span> Screen Layout</h2>
+
+                <p>Once you're flying an approach, the screen is split top/bottom:</p>
+
+                <h3>Top Half — Instrument Gauge</h3>
+                <p>Choose between <strong>HSI</strong> or <strong>VOR/CDI</strong> style from Settings (or with a button in the bottom control row during ILS Practice Mode). The gauge shows compass card, CDI needle, glideslope pointer, and LOC/GS/NAV flags.</p>
+
+                <div class="callout">
+                    <strong>Gauge availability:</strong> Both modes work with SkyView data. When using the ESP32 knob, <strong>only VOR/CDI is available</strong> — HSI requires magnetic heading, which the knob doesn't provide by design.
+                </div>
+
+                <img src="images/hsi_gauge.png" alt="HSI gauge mode">
+                <img src="images/vor_gauge.png" alt="VOR/CDI gauge mode">
+
+                <p>Tappable buttons to the left show your FAF, IAF, and any custom fixes with distance and bearing. The <span class="label">⚙ Settings</span> button (lower right) opens a menu with:</p>
+                <ul>
+                    <li><strong>Profiles</strong> — Returns to Profile Selection (only way back once flying)</li>
+                    <li><strong>Debug</strong> — Opens Datastream Debug</li>
+                    <li>Gauge-mode toggle (HSI/VOR)</li>
+                </ul>
+
+                <h3>Bottom Half — Multiple Layouts</h3>
+                <p>Tap to cycle through three layouts:</p>
+                <ul>
+                    <li><strong>Plan + Profile (default)</strong> — Top-down plan view alongside altitude profile strip</li>
+                    <li><strong>Plan (expanded)</strong> — Full-width plan view alone</li>
+                    <li><strong>Corridor + Profile</strong> — "Corridor" view alongside profile strip</li>
+                </ul>
+
+                <img src="images/plan_view.png" alt="Plan view (top-down, course/rings/fix labels)">
+                <img src="images/corridor_view.png" alt="Corridor view (course centerline, cone boundary, distance-to-MAP)">
+
+                <h3>Profile Strip</h3>
+                <p>Shows your altitude against the approach's glideslope with DH/MDA line. Top-right corner displays a <strong>"MAP:"</strong> reference card showing missed-approach fix, climb altitude, and heading/DIRECT instruction — this card is always visible as a reference, not a tactical cue.</p>
+
+                <img src="images/profile_strip.png" alt="Profile strip — altitude vs. glideslope, DH/MDA line, and the &quot;MAP:&quot; reference card">
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="creating-approach">
+                <h2><span class="section-number">4.</span> Creating an Approach</h2>
+
+                <p>From <strong>Profile Selection</strong>, three buttons start the process:</p>
+
+                <img src="images/profile_selection.png" alt="Profile Selection screen">
+
+                <h3>Quick Setup — AD HOC</h3>
+                <p>Opens <span class="label">AD HOC APPROACH SETUP</span>:</p>
+                <ol>
+                    <li>Pick approach type: <span class="label">PRECISION</span>, <span class="label">VOR</span>, or <span class="label">NDB</span></li>
+                    <li>Course and altitude default from current SkyView heading/altitude bug (editable)</li>
+                    <li>Optionally add up to two stepdown fixes</li>
+                    <li>Tap <span class="label">SET THRESHOLD HERE</span></li>
+                </ol>
+                <p>This synthesizes threshold/FAF/IAF geometry from your current GPS position and starts flying immediately.</p>
+
+                <img src="images/adhoc_setup.png" alt="AD HOC APPROACH SETUP screen">
+
+                <div class="callout">
+                    <strong>Ground-proximity guardrail:</strong> The app checks your threshold altitude against terrain data and blocks the button unless it's at least <strong>1500 ft AGL</strong>. Currently only covers Pacific Northwest; outside that region, the button refuses ("No terrain data available").
+                </div>
+
+                <h3>Detailed Setup — + NEW</h3>
+                <p>Opens <span class="label">Create Approach Profile</span> — a full manual form with:</p>
+
+                <img src="images/detailed_editor.png" alt="Create Approach Profile screen">
+
+                <ul>
+                    <li>Profile name, approach type (all 4 available)</li>
+                    <li><strong>Quick Paste</strong> — parses SkyVector-style coordinates (e.g., <code>N48°17.60' W121°56.87'</code>)</li>
+                    <li>Threshold lat/lon/altitude, course (magnetic), glideslope angle (precision: 2.5°–6.4°)</li>
+                    <li>IAF/FAF details: distance, name, altitude, fix type (auto-named with FAA-style pronounceable names)</li>
+                    <li>Up to 5 additional fixes with auto-naming</li>
+                    <li>Missed-approach fix picker</li>
+                    <li>Ground-proximity check (hard block if ≥1500 ft AGL or no terrain data)</li>
+                    <li>Descent rate warning (>750 fpm requires acknowledgment before save)</li>
+                </ul>
+
+                <h3>Built-In Example</h3>
+                <p><strong>"ILS_BigLake"</strong> (tagged "Built-in" in the list) is always available at the top of the Profile Selection list if you want to try the app without setup. It's a practice location, not a real airport, and it bypasses the terrain and descent-rate checks that apply to profiles you create.</p>
+
+                <h3>Safety Model</h3>
+                <div class="callout">
+                    <strong>VFR Practice Tool Only:</strong> Every profile-creation screen displays: "This is a simulation ONLY and is NEVER to be used in IFR conditions or without a safety pilot." The app always keeps threshold altitude at least 1500 ft AGL, so it can never present literal ground-level readings as valid guidance. Beyond that, the app does not restrict coordinates, courses, or altitudes you enter, including real airports.
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="approach-types">
+                <h2><span class="section-number">5.</span> Approach Types</h2>
+
+                <p>Four types exist: <span class="label">PRECISION</span> (ILS), <span class="label">LOC</span>, <span class="label">VOR</span>, <span class="label">NDB</span>. Quick Setup only offers PRECISION/VOR/NDB; LOC is available only through the detailed editor.</p>
+
+                <img src="images/ndb_approach.png" alt="Flying an NDB approach — bearing needle only, no TO/FROM or NAV flag (neither applies to ADF/NDB navigation)">
+
+                <h3>Minimums</h3>
+                <table>
+                    <tr>
+                        <th>Setup Method</th>
+                        <th>Precision</th>
+                        <th>VOR/NDB</th>
+                    </tr>
+                    <tr>
+                        <td>Ad Hoc (Quick Setup)</td>
+                        <td>200 ft AGL</td>
+                        <td>400 ft AGL</td>
+                    </tr>
+                    <tr>
+                        <td>Detailed Editor</td>
+                        <td colspan="2">Threshold + 200 ft (all types)</td>
+                    </tr>
+                </table>
+
+                <div class="callout caution">
+                    <strong>Important:</strong> In the detailed editor, the DH field looks editable but <strong>has no effect on the saved minimum</strong>. Every profile saved here gets threshold + 200 ft, regardless of what you type. The field shows no visual indication of this.
+                </div>
+
+                <img src="images/detailed_editor_dh_field.png" alt="DH Height Above Threshold field — looks editable, isn't wired to the saved minimum">
+
+                <h3>VOR Approaches</h3>
+                <p>Additionally model a "cone of confusion" near the station, which affects needle behavior close in.</p>
+
+                <img src="images/vor_approach.png" alt="Flying a VOR approach — bearing needle with active TO/FROM flag">
+                <img src="images/vor_approach_plan.png" alt="Cone of confusion (gray wedge) near the station in the plan view">
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="ils-practice">
+                <h2><span class="section-number">6.</span> ILS Practice Mode</h2>
+
+                <p>From Profile Selection, <span class="label">ILS PRACTICE</span> opens a dedicated practice screen (separate from profile-based flow — no profile is saved).</p>
+
+                <p><strong>The point:</strong> Quick, repeatable stick-and-rudder drills without setting up course geometry. Tap <span class="label">START</span> and your current position, heading, and altitude instantly become an imaginary ILS to fly. No missed approach, no minimums, nothing persists after you exit.</p>
+
+                <img src="images/ils_practice.png" alt="ILS Practice Mode screen">
+
+                <h3>Modes</h3>
+                <ul>
+                    <li><span class="label">LOC ONLY</span> — Pure lateral tracking</li>
+                    <li><span class="label">GS ONLY</span> — Pure vertical tracking</li>
+                    <li><span class="label">FLAT ILS</span> — Combined LOC + GS with oscillating glidepath (continuous ~3° descent / ~1° climb cycle, not a single descent to minimums)</li>
+                </ul>
+
+                <h3>Sensitivity Presets</h3>
+                <table>
+                    <tr>
+                        <th>Preset</th>
+                        <th>Localizer Width</th>
+                        <th>Glideslope Width</th>
+                    </tr>
+                    <tr>
+                        <td>NORMAL</td>
+                        <td>±2650 ft</td>
+                        <td>±300 ft</td>
+                    </tr>
+                    <tr>
+                        <td>MEDIUM</td>
+                        <td>±1325 ft</td>
+                        <td>±188 ft</td>
+                    </tr>
+                    <tr>
+                        <td>NARROW</td>
+                        <td>±450 ft</td>
+                        <td>±76 ft</td>
+                    </tr>
+                </table>
+
+                <p>Sensitivity resets to <span class="label">NORMAL</span> every time you re-capture a course. Choose a mode, tap <span class="label">START</span> — your current position, heading, altitude, and variation are captured as the reference course. <span class="label">NEW CRS</span> re-captures without leaving the screen. <span class="label">EXIT</span> returns to Profile Selection.</p>
+
+                <img src="images/ils_practice_flying.png" alt="ILS Practice screen while flying — sensitivity presets, CRS/offset readouts, gauge">
+
+                <div class="callout">
+                    <strong>Known limitation:</strong> Both lateral and vertical guidance always report as "valid," even when one axis is intentionally locked to zero (e.g., in <span class="label">LOC ONLY</span> mode, glideslope reads 0 but shows valid rather than flagged). Sensitivity amplitude is fixed.
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="flying">
+                <h2><span class="section-number">7.</span> Flying the Approach</h2>
+
+                <p>As you fly, the app updates lateral/vertical guidance continuously based on your live position:</p>
+
+                <h3>No Automatic Missed-Approach Trigger</h3>
+                <p><strong>⚠️ There is no automatic missed-approach trigger today.</strong> The live gauges don't respond to reaching MINIMUMS or MISSED. You fly and self-assess against raw distance/altitude/needle readouts, the same way you'd hand-fly a real approach. The <strong>"MAP:"</strong> card is always visible as a reference, not an in-the-moment cue.</p>
+
+                <h3>Other Behaviors</h3>
+                <ul>
+                    <li><strong>VOR approaches</strong> — Expect different needle sensitivity near the station due to the cone of confusion.</li>
+                    <li><strong>Nav data not flagged as unhealthy</strong> — LOC/GS/NAV flags indicate only whether guidance applies to your approach, not data freshness. If SkyView goes stale mid-approach, there's no visual flag. Cross-check the raw SkyView display.</li>
+                    <li><strong>Heading source doesn't fail over mid-session</strong> — Once the app picks a heading source, it stays with that source for the rest of the session, even if that source later drops, for training consistency.</li>
+                </ul>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="hardware">
+                <h2><span class="section-number">8.</span> Hardware Companion</h2>
+
+                <p>An ESP32-based wireless knob module, now integrated and bench-validated. It replaces touchscreen controls for the OBS course selector and altitude-trim knob, while a barometric sensor supplies local pressure altitude. Communicates over Bluetooth LE at 10 Hz.</p>
+
+                <h3>The Device</h3>
+                <ul>
+                    <li><strong>Sensors:</strong> Two rotary encoders (course and altitude-trim) with an onboard barometer (10cm altitude resolution)</li>
+                    <li><strong>Connectivity:</strong> Bluetooth LE, 10 Hz update rate</li>
+                    <li><strong>Power:</strong> USB</li>
+                </ul>
+
+                <h3>Knob Behavior — Software Acceleration</h3>
+                <ul>
+                    <li><strong>OBS (course) knob:</strong> Slow = 1°/click; medium = 2°/click; fast spin = 7°/click. Wraps at 360°.</li>
+                    <li><strong>ALT (altitude-trim) knob:</strong> Slow = 10 ft/click; medium = 25 ft/click; fast spin = 50 ft/click. Range ±2000 ft, clamped.</li>
+                </ul>
+
+                <h3>Button Actions (Long-Press at 500 ms)</h3>
+                <ul>
+                    <li><strong>ALT button:</strong> Resets altitude trim to 0 (display altitude reverts to raw ISA sensor reading). Useful for quick calibration re-check.</li>
+                    <li><strong>OBS button:</strong> Syncs the OBS knob to your current GPS magnetic track.</li>
+                </ul>
+
+                <h3>First-Run Setup</h3>
+                <ol>
+                    <li>Enable Bluetooth and grant location permissions.</li>
+                    <li>Power on the knob module.</li>
+                    <li>Tap <span class="label">Settings</span> → <span class="label">Debug</span> → <span class="label">BLE Knob Debug</span> to verify, or just start flying — the app will prompt if needed.</li>
+                </ol>
+
+                <div class="callout">
+                    <strong>If the knob doesn't appear after 10–20 seconds:</strong> Check Settings → Debug → Datastream Debug to confirm tablet GPS is getting a fix (the knob needs tablet position to compose guidance). If GPS is stuck, try toggling Airplane Mode off/on or moving to a window.
+                </div>
+
+                <h3>Bearing Needle Behavior in Knob Mode</h3>
+                <p>The VOR gauge's bearing needle doesn't have aircraft heading in knob-only mode, so it shows raw magnetic bearing to the fix — screen-up equals magnetic north. You resolve the rest against your own panel compass, matching what you'd do flying a fixed-card ADF without a heading card.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="troubleshooting">
+                <h2><span class="section-number">9.</span> Troubleshooting</h2>
+
+                <h3>Gauges aren't moving / No guidance</h3>
+                <ul>
+                    <li>Confirm your tablet is on the same network as SkyView.</li>
+                    <li>Open Settings → <span class="label">Debug</span> → <span class="label">Datastream Debug</span>. It shows live GPS/ADAHRS/System data, a <strong>"Has Minimum Data"</strong> ✓/✗ indicator, and Network Status (PRIMARY/FOLLOWER role + packet rate). If "Has Minimum Data" is ✗, check which required field is missing (lat/lon, ground speed, track, heading, indicated altitude, heading bug).</li>
+                </ul>
+
+                <img src="images/datastream_debug.png" alt="Datastream Debug screen">
+
+                <h3>"No terrain data available at this location" / Can't set a threshold or save a profile</h3>
+                <p>You're outside the app's currently-bundled terrain coverage (Pacific Northwest only). This is a hard block with no override — you can only create profiles inside the covered region.</p>
+
+                <h3>"Threshold altitude is only X ft AGL here... Minimum is 1500 ft AGL"</h3>
+                <p>The location/altitude you're trying to use is too close to terrain. This is a hard block with no override.</p>
+
+                <h3>Setup won't let you save a profile (descent rate)</h3>
+                <p>The detailed editor blocks saving if it detects a steep descent rate (>750 fpm between fixes). Tap <span class="label">Acknowledge and Continue</span> to proceed. This is intentional, not a bug.</p>
+
+                <h3>Something looks wrong mid-approach and the flags don't show a failure</h3>
+                <p>Known current limitation — stale or lost nav data isn't flagged yet. Cross-check the raw SkyView display.</p>
+
+                <h3>Capturing data to report a problem</h3>
+                <p>The <span class="label">RECORD</span> button (main flying screen and ILS Practice screen) saves a log to <code>Downloads/ApproachTrainerLogs/</code>. Send this folder along when reporting a problem.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="appendix">
+                <h2><span class="section-number">10.</span> Appendix</h2>
+
+                <h3>Minimums Reference</h3>
+                <table>
+                    <tr>
+                        <th>Path</th>
+                        <th>Precision</th>
+                        <th>VOR/NDB</th>
+                    </tr>
+                    <tr>
+                        <td>Ad Hoc (Quick Setup)</td>
+                        <td>200 ft AGL</td>
+                        <td>400 ft AGL</td>
+                    </tr>
+                    <tr>
+                        <td>Detailed Editor</td>
+                        <td colspan="2">Threshold + 200 ft (all types)</td>
+                    </tr>
+                </table>
+
+                <h3>Profile Save-Time / Threshold-Set-Time Checks</h3>
+                <table>
+                    <tr>
+                        <th>Check</th>
+                        <th>Applies To</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Threshold ≥1500 ft AGL (terrain-based, NW region only)</td>
+                        <td>Ad Hoc + Detailed Editor</td>
+                        <td>Active — hard block, no override</td>
+                    </tr>
+                    <tr>
+                        <td>Descent rate >750 fpm between fixes</td>
+                        <td>Detailed Editor</td>
+                        <td>Active — blocks save until acknowledged</td>
+                    </tr>
+                </table>
+
+                <h3>ILS Practice Sensitivity Reference</h3>
+                <table>
+                    <tr>
+                        <th>Preset</th>
+                        <th>LOC Width</th>
+                        <th>GS Width</th>
+                    </tr>
+                    <tr>
+                        <td>NORMAL</td>
+                        <td>±2650 ft</td>
+                        <td>±300 ft</td>
+                    </tr>
+                    <tr>
+                        <td>MEDIUM</td>
+                        <td>±1325 ft</td>
+                        <td>±188 ft</td>
+                    </tr>
+                    <tr>
+                        <td>NARROW</td>
+                        <td>±450 ft</td>
+                        <td>±76 ft</td>
+                    </tr>
+                </table>
+
+                <h3>Minimum Data Fields Required for Guidance</h3>
+                <p>Latitude, longitude, ground speed, magnetic track, magnetic heading, pressure altitude + baro setting, heading bug</p>
+
+                <h3>Approach Types</h3>
+                <p>PRECISION, LOC, VOR, NDB</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar active link highlighting
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Light/dark theme toggle support
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        function updateTheme() {
+            if (prefersDark.matches) {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        }
+        updateTheme();
+        prefersDark.addListener(updateTheme);
+    </script>
+</body>
+</html>
