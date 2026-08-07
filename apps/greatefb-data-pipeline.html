@@ -37,6 +37,9 @@
     <h2>What it does</h2>
     <p>GreatEFB doesn't fetch or render its own map data live &mdash; it ships with pre-built regional data generated offline by this pipeline. It's built specifically to feed <a href="greatefb.html">GreatEFB</a>, but it's a substantial project in its own right: pulling FAA source data, converting it into app-ready formats, and serving it to the tablet.</p>
 
+    <h2>Why is the pipeline necessary?</h2>
+    <p>Aviation data exists, but not in a format a tablet can efficiently display. The FAA provides sectional charts as huge raster images, airspace as shapefiles, and airport data in CSV format. These raw sources are too large and unsuitable for real-time processing on a tablet. The pipeline solves this by preprocessing everything once: chopping charts into map tiles, baking elevation into compact image formats, and indexing airspace/airport data into searchable databases. The tablet receives pre-digested data it can render instantly, without needing an internet connection or doing heavy computation mid-flight.</p>
+
     <h2>Highlights</h2>
     <ul>
       <li>Chart Generator converts FAA sectional charts into optimized MBTiles using GDAL</li>
