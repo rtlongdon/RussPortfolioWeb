@@ -35,7 +35,7 @@
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it does</h2>
-    <p>Turns a tablet into a dedicated engine monitor, mirroring the data your primary EFIS shows but with a layout tuned for at-a-glance scanning of engine health.</p>
+    <p>A secondary display that turns a tablet into a dedicated engine monitor, displaying engine parameters from Dynon SkyView via WiFi. Requires a live SkyView connection to operate—it has no standalone capability.</p>
 
     <h2>Gauges displayed</h2>
     <ul>
@@ -46,15 +46,16 @@
 
     <h2>Highlights</h2>
     <ul>
-      <li>Supports Dynon SkyView EMS UDP protocol (port 49155) out of the box</li>
-      <li>Generic CSV input also supported for testing and non-Dynon setups</li>
-      <li>Threshold values are simple constants, easy to tune to a specific engine's limits</li>
+      <li>Receives engine data from Dynon SkyView over WiFi (requires active SkyView connection)</li>
+      <li>Routing configurator maps any SkyView data field to the appropriate gauge, accommodating wiring and sensor differences across aircraft</li>
+      <li>Configurable yellow/red threshold bands per gauge to match your engine's limits</li>
+      <li>Layout designed for quick at-a-glance scanning of engine health</li>
     </ul>
 
     <div class="detail-meta">
       <div><strong>Platform</strong>Android (Kotlin)</div>
-      <div><strong>Data source</strong>Dynon SkyView EMS UDP, or generic CSV</div>
-      <div><strong>Rendering</strong>Jetpack Compose</div>
+      <div><strong>Requires</strong>Dynon SkyView WiFi connection</div>
+      <div><strong>Role</strong>Secondary display only</div>
     </div>
   </div>
 </section>
