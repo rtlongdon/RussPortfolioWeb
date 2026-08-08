@@ -37,7 +37,7 @@ a:hover { text-decoration: underline; }
 .wrap {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 36px;
 }
 
 /* Header */
@@ -87,7 +87,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 /* Hero */
 .hero {
-  padding: 160px 0 140px;
+  padding: 100px 0 80px;
   text-align: center;
 }
 
@@ -106,7 +106,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 /* Category sections */
 .category {
-  padding: 40px 0 120px;
+  padding: 20px 0 64px;
 }
 
 .category-title {
@@ -125,19 +125,19 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 .app-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 60px;
+  gap: 32px;
 }
 
 .app-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 48px;
+  padding: 32px;
   box-shadow: var(--shadow);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
   color: var(--text);
 }
 
@@ -251,7 +251,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 /* App detail page */
 .app-detail-header {
-  padding: 80px 0 64px;
+  padding: 56px 0 40px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -281,7 +281,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 }
 
 .app-detail-body {
-  padding: 80px 0 160px;
+  padding: 56px 0 100px;
 }
 
 .app-detail-body .wrap {
@@ -290,7 +290,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 .app-detail-body h2 {
   font-size: 1.2rem;
-  margin: 80px 0 32px;
+  margin: 48px 0 20px;
 }
 
 .app-detail-body h2:first-child { margin-top: 0; }
@@ -342,7 +342,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 /* Footer */
 footer.site-footer {
   border-top: 1px solid var(--border);
-  padding: 64px 0;
+  padding: 40px 0;
   color: var(--text-muted);
   font-size: 0.85rem;
   text-align: center;
