@@ -348,7 +348,7 @@ footer.site-footer {
   text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) and (min-width: 769px) {
   :root {
     --bg: #11151d;
     --bg-alt: #1a2029;
