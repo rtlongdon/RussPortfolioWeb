@@ -284,6 +284,11 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
   padding: 56px 0 100px;
 }
 
+/* Reduce spacing when app-detail-body directly follows hero */
+.hero + .app-detail-body {
+  padding-top: 20px;
+}
+
 .app-detail-body .wrap {
   max-width: 760px;
 }
