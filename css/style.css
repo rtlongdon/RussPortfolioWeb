@@ -339,6 +339,48 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
   margin-bottom: 2px;
 }
 
+/* Reusable utility classes */
+.footer-disclaimer {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+.last-updated {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-top: 12px;
+}
+
+.badge-construction {
+  background: #fdf3e0;
+  color: #c98a00;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.clickable-image {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.link-unstyled {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 /* Footer */
 footer.site-footer {
   border-top: 1px solid var(--border);
@@ -348,7 +390,7 @@ footer.site-footer {
   text-align: center;
 }
 
-@media (prefers-color-scheme: dark) and (min-width: 769px) {
+@media (prefers-color-scheme: dark) and (min-width: 769px) and (orientation: landscape) {
   :root {
     --bg: #11151d;
     --bg-alt: #1a2029;
