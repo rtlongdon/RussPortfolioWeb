@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Russ Longdon</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&#9992;</span>
+      Russ Longdon
+    </a>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <nav class="site-nav">
+        <a href="software-hardware.html">Software &amp; Hardware</a>
+        <a href="aviation.html">Aviation Stuff</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="index.html">About</a>
+      </nav>
+      <div style="background: #fdf3e0; color: #c98a00; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">
+        🚧 ⚙️ 🛠️
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Software and hardware projects</h1>
+    <p>A running collection of work spanning Android avionics apps, embedded hardware, and CNC builds &mdash; mostly built for experimental aircraft, some built for the shop.</p>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <div class="category">
+    <h2 class="category-title">SkyView App Suite</h2>
+    <p class="category-desc">A companion suite of apps built around Dynon SkyView avionics — moving maps, approach training, secondary flight displays, and engine monitoring, sharing a live SkyView data feed — plus the offline pipeline that builds GreatEFB's map data. This project is my sandbox for learning Android development and exploring human-AI collaboration. I brought domain expertise in hardware and embedded systems but started from scratch with Kotlin and Android frameworks. The partnership evolved from the AI providing heavy guidance and detailed walkthroughs early on to something closer to 50/50 collaboration — I now direct the technical decisions and architecture while using AI as a collaborative workhorse to accelerate implementation.</p>
+    <div class="app-grid">
+
+      <a class="app-card" href="apps/approach-trainer.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#1f6feb;">&#127919;</div>
+          <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
+        </div>
+        <h3>Approach Trainer</h3>
+        <p class="tagline">A synthetic approach procedure trainer that uses live SkyView avionics data to compute real-time guidance to user-defined practice points.</p>
+        <div class="tag-row">
+          <span class="tag">Android</span>
+          <span class="tag">Kotlin</span>
+          <span class="tag">IFR training</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/greatefb.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#1f9d55;">&#128506;</div>
+          <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
+        </div>
+        <h3>GreatEFB</h3>
+        <p class="tagline">An Android tablet electronic flight bag with a live moving map, airspace and airport overlays, driven by SkyView GPS and flight data.</p>
+        <div class="tag-row">
+          <span class="tag">Android</span>
+          <span class="tag">Moving map</span>
+          <span class="tag">EFB</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/sfd-android.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#7c4dff;">&#9992;</div>
+          <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
+        </div>
+        <h3>Secondary Flight Display</h3>
+        <p class="tagline">A glass-cockpit secondary flight display for RV-12 SkyView panels &mdash; live attitude, airspeed, altitude, and turn coordinator at 60&nbsp;FPS, with datalog replay.</p>
+        <div class="tag-row">
+          <span class="tag">Android</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">Glass cockpit</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/efis-display.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#e07b1f;">&#9881;&#65039;</div>
+          <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
+        </div>
+        <h3>Engine Monitoring System (EMS)</h3>
+        <p class="tagline">Animated engine gauges &mdash; RPM, oil, fuel, EGT/CHT, and more &mdash; driven by live UDP data from avionics engine monitors.</p>
+        <div class="tag-row">
+          <span class="tag">Android</span>
+          <span class="tag">Jetpack Compose</span>
+          <span class="tag">EMS</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/greatefb-data-pipeline.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
+          <span class="status-badge status-live" data-tip="Production pipeline in regular use." tabindex="0">Stable</span>
+        </div>
+        <h3>GreatEFB Data Pipeline</h3>
+        <p class="tagline">The offline data pipeline that builds GreatEFB's map data &mdash; sectional charts, airspace, airports, and elevation tiles from FAA source data.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">GDAL</span>
+          <span class="tag">Data pipeline</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h2 class="category-title">Hardware Projects</h2>
+    <p class="category-desc">Physical builds &mdash; embedded controllers and mechanical hardware for the panel.</p>
+    <div class="app-grid">
+
+      <a class="app-card" href="apps/approach-trainer-companion.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#0e9488;">&#127919;</div>
+          <span class="status-badge status-dev" data-tip="Validated on the bench &mdash; not yet flown in the aircraft." tabindex="0">Bench validated</span>
+        </div>
+        <h3>Approach Trainer Companion</h3>
+        <p class="tagline">A physical BLE knob for Approach Trainer &mdash; altitude bug and baro control on hardware, without needing Dynon SkyView present.</p>
+        <div class="tag-row">
+          <span class="tag">ESP32</span>
+          <span class="tag">BLE</span>
+          <span class="tag">Hardware</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/trim-wheel.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#c0392b;">&#128734;</div>
+          <span class="status-badge status-dev" data-tip="Actively being built &mdash; mechanical prototype fitted and custom PCB in progress, not yet bench validated." tabindex="0">In development</span>
+        </div>
+        <h3>Trim Wheel</h3>
+        <p class="tagline">A rotary-encoder trim wheel that replaces a momentary trim switch, giving proportional trim control instead of just on/off.</p>
+        <div class="tag-row">
+          <span class="tag">Hardware</span>
+          <span class="tag">PCB design</span>
+          <span class="tag">Embedded</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="apps/adahrs-project.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
+          <span class="status-badge status-dev" data-tip="Currently in discovery and learning phase. Spec'd and conceptual; hardware and software architecture under development." tabindex="0">Early stage</span>
+        </div>
+        <h3>ADAHRS Project</h3>
+        <p class="tagline">An experimental attitude and heading reference system — minimal backup attitude instrument with IMU fusion and GPS yaw reference.</p>
+        <div class="tag-row">
+          <span class="tag">Hardware</span>
+          <span class="tag">Firmware</span>
+          <span class="tag">Sensor fusion</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h2 class="category-title">CNC Projects</h2>
+    <p class="category-desc">Machine builds and CNC work.</p>
+    <div class="app-grid">
+
+      <a class="app-card" href="apps/cnc-projects.html">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#5c6b8a;">&#128296;</div>
+          <span class="status-badge status-planned" data-tip="Early concept &mdash; not yet built." tabindex="0">Planned</span>
+        </div>
+        <h3>CNC Projects</h3>
+        <p class="tagline">CNC machine builds and projects.</p>
+        <div class="tag-row">
+          <span class="tag">CNC</span>
+          <span class="tag">Placeholder</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Russ Longdon &mdash; software, hardware, and CNC projects.</p>
+    <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 8px;">Living portfolio — everything subject to change.</p>
+    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 12px;">Last updated: August 11, 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
