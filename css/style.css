@@ -386,6 +386,23 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
   text-decoration: none;
 }
 
+.footer-attribution-link {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.footer-attribution-link:hover {
+  background: var(--accent-dark);
+  text-decoration: none;
+}
+
 /* Footer */
 footer.site-footer {
   border-top: 1px solid var(--border);

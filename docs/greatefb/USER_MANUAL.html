@@ -1994,7 +1994,84 @@
                         contributors</a>, available under the
                     <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener">Open Database
                         License (ODbL)</a>. All other charts, airspace, navaid, and airport data displayed in
-                    GreatEFB come from FAA/NASR public sources (see "Data Accuracy and Currency" in Section 1).</p>
+                    GreatEFB come from FAA/NASR and USGS public sources (US government works, public domain
+                    domestically under 17 U.S.C. § 105) — see "Data Accuracy and Currency" in Section 1.</p>
+
+                <h3>Third-Party Software Licenses</h3>
+                <p>GreatEFB is built on the following open-source libraries. All are permissive licenses (Apache
+                    2.0, BSD, or public domain) — none carry copyleft (GPL/LGPL/AGPL) or non-commercial
+                    restrictions. Verified against each library's own published license metadata, not assumed from
+                    reputation (2026-08-13).</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Library</th>
+                            <th>Publisher</th>
+                            <th>License</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MapLibre Android SDK</td>
+                            <td>MapLibre contributors</td>
+                            <td>BSD-2-Clause</td>
+                        </tr>
+                        <tr>
+                            <td>MapLibre GeoJSON / Turf utility libraries</td>
+                            <td>MapLibre contributors</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>MapLibre Android Gestures</td>
+                            <td>MapLibre contributors</td>
+                            <td>BSD-2-Clause</td>
+                        </tr>
+                        <tr>
+                            <td>AndroidX (AppCompat, ConstraintLayout, Fragment, Lifecycle, RecyclerView, Room,
+                                WorkManager)</td>
+                            <td>Google</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>Material Components for Android</td>
+                            <td>Google</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>Kotlin Standard Library</td>
+                            <td>JetBrains</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>kotlinx.coroutines</td>
+                            <td>JetBrains</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>OkHttp / Okio</td>
+                            <td>Square, Inc.</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td>org.json</td>
+                            <td>JSON.org / stleary</td>
+                            <td>Public Domain</td>
+                        </tr>
+                        <tr>
+                            <td>NanoHTTPD</td>
+                            <td>NanoHttpd-Project</td>
+                            <td>BSD-3-Clause</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>Note on org.json:</strong> older releases of this library (prior to 2022) carried a
+                    different, more restrictive license with a non-standard "must be used for Good, not Evil"
+                    clause. GreatEFB uses a current release, relicensed to Public Domain — the older clause does not
+                    apply.
+                </div>
             </section>
 
             <div class="divider"></div>
@@ -2003,7 +2080,9 @@
                 <strong>Manual Status:</strong> This comprehensive user manual covers all major sections of GreatEFB
                 with detailed explanations of architecture, system behavior, and user interactions. Content verified
                 against running app and source code as of 2026-08-13 (added Airport Diagrams; added missing
-                PIREP/SIGMET/G-AIRMET/CWA layer toggles; corrected data-type counts to 7).
+                PIREP/SIGMET/G-AIRMET/CWA layer toggles; corrected data-type counts to 7; added copyright notice,
+                Data Attribution, and a full Third-Party Software Licenses table verified against each library's
+                own published license metadata).
             </div>
         </main>
     </div>
