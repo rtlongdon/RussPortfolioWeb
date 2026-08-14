@@ -386,21 +386,37 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
   text-decoration: none;
 }
 
-.footer-attribution-link {
-  display: inline-block;
-  background: var(--accent);
+.footer-attribution-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-dark);
   color: white;
   padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 0.8rem;
+  border-radius: 20px;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   transition: background 0.15s ease;
+  white-space: nowrap;
 }
 
-.footer-attribution-link:hover {
-  background: var(--accent-dark);
+.footer-attribution-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+.footer-attribution-badge:hover {
+  background: #0d47a1;
   text-decoration: none;
+}
+
+.footer-copyright-text {
+  font-size: 1.125rem;
+  opacity: 0.7;
 }
 
 /* Footer */
