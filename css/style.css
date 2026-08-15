@@ -391,12 +391,12 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
   align-items: center;
   gap: 6px;
   background: var(--accent-dark);
-  color: white;
+  color: white !important;
   padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: background 0.15s ease;
   white-space: nowrap;
 }
@@ -411,7 +411,7 @@ nav.site-nav a:hover { color: var(--accent); text-decoration: none; }
 
 .footer-attribution-badge:hover {
   background: #0d47a1;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .footer-copyright-text {
