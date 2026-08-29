@@ -28,33 +28,58 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
     <h1>ADAHRS Project</h1>
-    <p class="tagline">An experimental attitude and heading reference system (ADAHRS) for experimental aircraft — backup attitude instrument design with sensor fusion and real-time filtering.</p>
-    <span class="status-badge status-dev" data-tip="Currently in discovery and learning phase. Spec'd and conceptual; hardware and software architecture under development." tabindex="0">Early stage</span>
+    <p class="tagline">An experimental backup attitude instrument — currently in active flight validation with complementary-filter firmware and comparative data logging to assess performance against primary avionics.</p>
+    <span class="status-badge status-live" data-tip="Actively flying and collecting flight data; complementary filter in use; data analyzed post-flight." tabindex="0">Flight testing</span>
   </div>
 </section>
 
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it is</h2>
-    <p>A minimal, standalone backup attitude instrument designed to keep the pilot upright if the primary system fails. Rather than a full ADAHRS system, the scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed, with a sensor suite that includes IMU (gyro + accelerometer), GPS for yaw reference and VSI cross-check, and barometric pressure for altitude.</p>
+    <p>A minimal, standalone backup attitude instrument designed to keep the pilot upright if the primary system fails. Scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed. Current implementation uses a complementary filter (gyro + accelerometer) with on-the-fly accel gating to handle coordinated turns. The system logs all estimator state and sensor raw data for post-flight analysis and comparison against reference avionics.</p>
 
-    <h2>Architecture</h2>
+    <h2>Progress to Date</h2>
+
+    <h3>Hardware (ESP32-S3 Firmware)</h3>
     <ul>
-      <li><strong>IMU-based core:</strong> 9-DOF gyro + accelerometer for attitude and slip detection</li>
-      <li><strong>Redundant yaw:</strong> GPS velocity vector (coordinated flight above minimum groundspeed) as the yaw reference</li>
-      <li><strong>Altitude and VSI:</strong> Barometric pressure sensor for altitude and vertical speed indication</li>
-      <li><strong>Deliberate exclusions:</strong> No magnetometer (eliminates hard/soft iron calibration), no airspeed sensor (no pitot-static tap needed)</li>
+      <li>Complementary filter implemented and validated on bench</li>
+      <li>Full sensor suite integrated: BMI270 6-DOF IMU (gyro + accel), MS5611 barometer, KY-040 encoder</li>
+      <li>BLE telemetry streaming roll, pitch, altitude, sensor temps, accelerometer and gyro data</li>
+      <li>Baseline filter performance established through 1 flight (4 data runs, ~45 minutes)</li>
     </ul>
 
+    <h3>Companion App (Android) — Logging and Comparison</h3>
+    <ul>
+      <li>Real-time BLE receiver: captures hardware roll, pitch, altitude, IMU and barometer telemetry</li>
+      <li>Reference data logger: reads Dynon avionics stream (heading, airspeed, turn rate, altitude) via UDP</li>
+      <li>Navigation input: GPS position and magnetic heading from tablet sensors</li>
+      <li>Comparative CSV export: side-by-side hardware vs. reference data, synchronized and timestamped</li>
+      <li>Data pipeline: Python analysis scripts for post-flight filter evaluation, accuracy metrics, and sensor characterization</li>
+      <li>Enables iterative tuning without bench instrumentation</li>
+    </ul>
+
+    <h2>What the Flight Data Showed</h2>
+    <p>One flight (Aug 26, 2026) collected 4 continuous data runs (~45 minutes total), comparing backup hardware estimates against Dynon reference:</p>
+    <ul>
+      <li><strong>Roll accuracy:</strong> 3.6–9.4° RMS error vs. Dynon reference, depending on maneuver intensity</li>
+      <li><strong>Pitch error:</strong> 5.87–8.50° RMS</li>
+      <li><strong>Shallow-bank regime:</strong> Below ~19° bank, gyro/accel combination shows observability limits without additional aiding</li>
+      <li><strong>Airspeed aiding:</strong> Testing showed airspeed-derived bank constraint improves heavy maneuvering roll by ~2°</li>
+      <li><strong>Accel gating:</strong> Rejection gates properly suppress acceleration noise; accel usage 35–81% depending on maneuver phase</li>
+      <li><strong>Recovery behavior:</strong> Loss-of-accel recovery timer remains &lt; 1.5 seconds across all profiles</li>
+    </ul>
+    <p>Data logged to CSV for offline analysis; Python scripts extract Euler angles, compute RMS errors vs. reference, and characterize sensor noise floor.</p>
+
     <h2>Current Phase</h2>
-    <p>Sensor selection and architecture under active review. Learning focus: IMU sensor fusion, Kalman filtering for attitude estimation, GPS velocity noise characterization, and pressure altitude resolution for VSI applications. Core mathematics study includes refresher on matrix and quaternion representations of aircraft and earth reference frames, essential for attitude transformation and filtering.</p>
+    <p>Analyzing flight results to inform next development priorities. Hardware and app both operational and data-producing. Current focus: understanding filter performance envelope and evaluating options for improvement (enhanced gating logic, EKF with multi-sensor aiding, or accepting shallow-bank limit as known tradeoff).</p>
 
     <h2>Next Steps</h2>
     <ul>
-      <li>Sensor evaluation and prototype board layout</li>
-      <li>Attitude estimation filter implementation (EKF or complementary filter)</li>
-      <li>Real-time firmware development (C/C++ on microcontroller)</li>
-      <li>Flight-test validation and integration with existing avionics</li>
+      <li>Validate complementary filter on higher-rate IMU capture (current playback limited by DAQ fidelity)</li>
+      <li>Evaluate multi-sensor aiding (airspeed, GPS heading, possibly magnetometer) for improved tracking</li>
+      <li>Implement EKF alternative and compare offline against complementary-filter results</li>
+      <li>Display integration: RGB attitude display and vertical-speed tape (Phase 3)</li>
+      <li>Continue flight validation with extended test matrix (different airspeeds, load factors, atmospheric conditions)</li>
     </ul>
 
     <h2>Documentation</h2>
@@ -65,8 +90,9 @@
 
     <div class="detail-meta">
       <div><strong>Focus</strong>Backup attitude instrument</div>
-      <div><strong>Approach</strong>IMU fusion + GPS yaw reference</div>
-      <div><strong>Status</strong>Concept &amp; discovery phase</div>
+      <div><strong>Current approach</strong>Complementary filter with accel gating</div>
+      <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
+      <div><strong>Status</strong>Flight validated; evaluating improvements</div>
     </div>
   </div>
 </section>
@@ -75,6 +101,7 @@
   <div class="wrap">
     <p>Russ Longdon — software, hardware, and CNC projects.</p>
     <p class="footer-disclaimer">Living portfolio — everything subject to change.</p>
+    <p class="last-updated">Last updated: August 28, 2026</p>
     <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
       <span class="footer-copyright-text">&copy; 2026 Russell Longdon. All rights reserved.</span>
       <a href="../attributions.html" class="footer-attribution-badge">Attributions</a>
