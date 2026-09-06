@@ -28,8 +28,8 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
     <h1>ADAHRS Project</h1>
-    <p class="tagline">An experimental backup attitude instrument — currently in active flight validation with complementary-filter firmware and comparative data logging to assess performance against primary avionics.</p>
-    <span class="status-badge status-live" data-tip="Actively flying and collecting flight data; complementary filter in use; data analyzed post-flight." tabindex="0">Flight testing</span>
+    <p class="tagline">An experimental backup attitude instrument in active flight validation. A GPS-velocity-aided EKF now runs live on the hardware and — as of the September 2026 flight — tracks attitude to ~1–2&deg; against primary avionics through the full bank range.</p>
+    <span class="status-badge status-live" data-tip="Actively flying and collecting flight data; aided EKF running live on hardware in shadow mode; data analyzed post-flight." tabindex="0">Flight testing</span>
   </div>
 </section>
 
@@ -76,14 +76,27 @@
     </ul>
     <p>Data logged to CSV for offline analysis; Python scripts extract Euler angles, compute RMS errors vs. reference, and characterize sensor noise floor.</p>
 
+    <h2>Flight Update — September 3, 2026</h2>
+    <p>Second flight test (N712WE RV-12, ~39 minutes, hardware rigidly mounted). This was the first flight of a new estimator: an aided Extended Kalman Filter running <em>live on the ESP32</em> in shadow mode &mdash; logging its own attitude solution alongside the complementary filter for direct comparison, while the complementary filter still drove the bench display. The EKF uses GPS ground-velocity aiding and runs in the configuration the shipped unit will use: no magnetometer, no pitot-static.</p>
+    <ul>
+      <li><strong>Coordinated-turn blind spot closed on hardware:</strong> whole-flight roll error dropped to <strong>1.30&deg; RMS</strong> vs. Dynon reference, compared to 5.08&deg; for the complementary filter on the same flight. Roll accuracy held flat at 1&ndash;2&deg; RMS across every bank angle from wings-level through 50&deg; &mdash; the shallow- and mid-bank regime where the old filter was worst (10&ndash;12&deg; RMS) is now ~2&deg;.</li>
+      <li><strong>Sustained turns:</strong> 22 held turns, pooled roll error 1.96&deg; RMS (vs. 8.45&deg; for the complementary filter).</li>
+      <li><strong>Pitch:</strong> ~0.95&deg; RMS after removing a fixed +4.4&deg; offset, which is a physical mounting-alignment error (a one-time leveling adjustment, not an estimator problem).</li>
+      <li><strong>GPS-loss test:</strong> a deliberate 65-second cutoff of all reference/GPS data. With no aiding, EKF roll wandered during maneuvering &mdash; expected, since GPS velocity is what gives the filter its turn observability in this sensor configuration. It re-anchored cleanly within seconds once GPS returned, with no lasting error. This matches how certified GPS-aided backup instruments behave (warn, then blank the horizon); wiring up that &ldquo;attitude degraded&rdquo; annunciation is the next task.</li>
+      <li><strong>Data capture:</strong> cleanest yet &mdash; 33 Hz backup telemetry, zero dropouts over the full flight.</li>
+    </ul>
+    <p>Incidental findings: ground-taxi turns independently confirmed the EKF's accelerometer-gating logic; the slip/skid indication reads about 0.7&times; of reference (flagged for a firmware fix); and cabin-pressure altitude runs 50&ndash;85 ft high at cruise speed &mdash; a known tradeoff of having no static port on a minimal backup instrument.</p>
+
     <h2>Current Phase</h2>
-    <p>Analyzing flight results to inform next development priorities. Hardware and app both operational and data-producing. Current focus: understanding filter performance envelope and evaluating options for improvement (enhanced gating logic, EKF with multi-sensor aiding, or accepting shallow-bank limit as known tradeoff).</p>
+    <p>The aided EKF is now the development path forward. Hardware and app both operational and data-producing; the EKF runs live on the hardware in shadow mode while the complementary filter still drives the display. Current focus: the work needed before the EKF can take over the pilot-facing output &mdash; filter-consistency monitoring and a D3-style &ldquo;attitude degraded&rdquo; annunciation for GPS-loss and other low-confidence conditions.</p>
 
     <h2>Next Steps</h2>
     <ul>
-      <li>Validate complementary filter on higher-rate IMU capture (current playback limited by DAQ fidelity)</li>
-      <li>Evaluate multi-sensor aiding (airspeed, GPS heading, possibly magnetometer) for improved tracking</li>
-      <li>Implement EKF alternative and compare offline against complementary-filter results</li>
+      <li>Add filter-consistency (NIS/NEES) monitoring so the estimator can self-assess its solution in flight</li>
+      <li>Implement the &ldquo;attitude degraded&rdquo; annunciation and horizon-blanking for GPS-loss / low-confidence states</li>
+      <li>Static-level the hardware to remove the +4.4&deg; pitch mounting offset</li>
+      <li>Cut the EKF over to the pilot-facing output once tracking and consistency both clear the bar; keep the complementary filter as a cross-check</li>
+      <li>Firmware pass on the slip/skid indication gain and the Y-axis accelerometer offset</li>
       <li>Display integration: RGB attitude display and vertical-speed tape (Phase 3)</li>
       <li>Continue flight validation with extended test matrix (different airspeeds, load factors, atmospheric conditions)</li>
     </ul>
@@ -96,9 +109,9 @@
 
     <div class="detail-meta">
       <div><strong>Focus</strong>Backup attitude instrument</div>
-      <div><strong>Current approach</strong>Complementary filter with accel gating</div>
+      <div><strong>Current approach</strong>GPS-velocity-aided EKF (shadow); complementary filter as cross-check</div>
       <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
-      <div><strong>Status</strong>Flight validated; evaluating improvements</div>
+      <div><strong>Status</strong>Flight validated; EKF closing out to pilot-facing use</div>
     </div>
   </div>
 </section>
