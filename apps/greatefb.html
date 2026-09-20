@@ -29,7 +29,7 @@
     <a class="back-link" href="../software-hardware.html">&larr; All projects</a>
     <div class="app-icon" style="background:#1f9d55;">&#128506;</div>
     <h1>GreatEFB</h1>
-    <p class="tagline">An Android tablet EFB (Electronic Flight Bag) moving map application for experimental aircraft equipped with Dynon SkyView avionics.</p>
+    <p class="tagline">An Android tablet EFB (Electronic Flight Bag) moving map application for experimental aircraft. Runs standalone, and is enriched by a Dynon SkyView datastream when available.</p>
     <div style="display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap;">
       <span class="status-badge status-live" data-tip="Confirmed functional in real flights &mdash; not a claim that the app is finished or bug-free." tabindex="0">Flight tested</span>
       <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;"><em>Living portfolio — everything subject to change.</em></p>
@@ -40,11 +40,11 @@
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it does</h2>
-    <p>GreatEFB is a full-featured electronic flight bag that displays a moving map with airspace and airport overlays. It optionally integrates with Dynon SkyView over WiFi for live GPS and flight data, but also runs standalone using the tablet's own GPS stream &mdash; making it useful whether or not SkyView is present.</p>
+    <p>GreatEFB is a full-featured electronic flight bag that displays a moving map with airspace and airport overlays. It runs standalone using the tablet's own GPS stream, and optionally integrates with Dynon SkyView over WiFi &mdash; a SkyView datastream enriches the display and data with GDL90 traffic, NEXRAD weather, and other in-flight data. Useful whether or not SkyView is present.</p>
 
     <h2>Highlights</h2>
     <ul>
-      <li>Live moving map driven by SkyView GPS and flight data</li>
+      <li>Live moving map that runs standalone on the tablet's own GPS; a Dynon SkyView datastream enriches the display with GDL90 traffic, NEXRAD weather, and other in-flight data</li>
       <li>Airspace and airport overlays, including TFRs</li>
       <li>Flight plan mode with rubber-banding to adjust a route in flight</li>
       <li>Weather data integration</li>
@@ -84,7 +84,7 @@
 
     <div class="detail-meta">
       <div><strong>Platform</strong>Android (Kotlin)</div>
-      <div><strong>Data source</strong>Dynon SkyView UDP (ports 49155, 8384)</div>
+      <div><strong>Data source</strong>Tablet GPS (standalone); Dynon SkyView UDP optional (ports 49155, 8384)</div>
       <div><strong>Map engine</strong>MapLibre</div>
     </div>
   </div>
@@ -94,7 +94,7 @@
   <div class="wrap">
     <p>Russ Longdon — software, hardware, and CNC projects.</p>
     <p class="footer-disclaimer">Living portfolio — everything subject to change.</p>
-    <p class="last-updated">Last updated: August 11, 2026</p>
+    <p class="last-updated">Last updated: September 20, 2026</p>
     <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
       <span class="footer-copyright-text">&copy; 2026 Russell Longdon. All rights reserved.</span>
       <a href="../attributions.html" class="footer-attribution-badge">Attributions</a>
