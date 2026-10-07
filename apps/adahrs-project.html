@@ -28,8 +28,8 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
     <h1>ADAHRS Project</h1>
-    <p class="tagline">An experimental backup attitude instrument in active flight validation. A GPS-velocity-aided EKF now runs live on the hardware and — as of the September 2026 flight — tracks attitude to ~1–2&deg; against primary avionics through the full bank range.</p>
-    <span class="status-badge status-live" data-tip="Actively flying and collecting flight data; aided EKF running live on hardware in shadow mode; data analyzed post-flight." tabindex="0">Flight testing</span>
+    <p class="tagline">An experimental backup attitude instrument that rides along on my regular flights. A GPS-velocity-aided EKF now runs live on the hardware and — as of the September 2026 flight — tracks attitude to ~1–2&deg; against primary avionics through the full bank range.</p>
+    <span class="status-badge status-live" data-tip="Rides along on regular flights; aided EKF running live on hardware in shadow mode; incidental data compared against the primary avionics afterward." tabindex="0">In-flight data comparison</span>
   </div>
 </section>
 
@@ -64,7 +64,7 @@
       <li>Enables iterative tuning without bench instrumentation</li>
     </ul>
 
-    <h2>What the Flight Data Showed</h2>
+    <h2>What the In-Flight Data Showed</h2>
     <p>One flight (Aug 26, 2026) collected 4 continuous data runs (~45 minutes total), comparing backup hardware estimates against Dynon reference:</p>
     <ul>
       <li><strong>Roll accuracy:</strong> 3.6–9.4° RMS error vs. Dynon reference, depending on maneuver intensity</li>
@@ -76,8 +76,8 @@
     </ul>
     <p>Data logged to CSV for offline analysis; Python scripts extract Euler angles, compute RMS errors vs. reference, and characterize sensor noise floor.</p>
 
-    <h2>Flight Update — September 3, 2026</h2>
-    <p>Second flight test (N712WE RV-12, ~39 minutes, hardware rigidly mounted). This was the first flight of a new estimator: an aided Extended Kalman Filter running <em>live on the ESP32</em> in shadow mode &mdash; logging its own attitude solution alongside the complementary filter for direct comparison, while the complementary filter still drove the bench display. The EKF uses GPS ground-velocity aiding and runs in the configuration the shipped unit will use: no magnetometer, no pitot-static.</p>
+    <h2>In-Flight Update — September 3, 2026</h2>
+    <p>Second flight with the unit aboard (N712WE RV-12, ~39 minutes, hardware rigidly mounted). This was the first flight of a new estimator: an aided Extended Kalman Filter running <em>live on the ESP32</em> in shadow mode &mdash; logging its own attitude solution alongside the complementary filter for direct comparison, while the complementary filter still drove the bench display. The EKF uses GPS ground-velocity aiding and runs in the configuration the shipped unit will use: no magnetometer, no pitot-static.</p>
     <ul>
       <li><strong>Coordinated-turn blind spot closed on hardware:</strong> whole-flight roll error dropped to <strong>1.30&deg; RMS</strong> vs. Dynon reference, compared to 5.08&deg; for the complementary filter on the same flight. Roll accuracy held flat at 1&ndash;2&deg; RMS across every bank angle from wings-level through 50&deg; &mdash; the shallow- and mid-bank regime where the old filter was worst (10&ndash;12&deg; RMS) is now ~2&deg;.</li>
       <li><strong>Sustained turns:</strong> 22 held turns, pooled roll error 1.96&deg; RMS (vs. 8.45&deg; for the complementary filter).</li>
@@ -98,7 +98,7 @@
       <li>Cut the EKF over to the pilot-facing output once tracking and consistency both clear the bar; keep the complementary filter as a cross-check</li>
       <li>Firmware pass on the slip/skid indication gain and the Y-axis accelerometer offset</li>
       <li>Display integration: RGB attitude display and vertical-speed tape (Phase 3)</li>
-      <li>Continue flight validation with extended test matrix (different airspeeds, load factors, atmospheric conditions)</li>
+      <li>Keep comparing against the primary avionics as I fly, across different airspeeds, load factors, and atmospheric conditions</li>
     </ul>
 
     <h2>Documentation</h2>
@@ -111,7 +111,7 @@
       <div><strong>Focus</strong>Backup attitude instrument</div>
       <div><strong>Current approach</strong>GPS-velocity-aided EKF (shadow); complementary filter as cross-check</div>
       <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
-      <div><strong>Status</strong>Flight validated; EKF closing out to pilot-facing use</div>
+      <div><strong>Status</strong>Flown and compared; EKF closing out to pilot-facing use</div>
     </div>
   </div>
 </section>
@@ -120,7 +120,7 @@
   <div class="wrap">
     <p>Russ Longdon — software, hardware, and CNC projects.</p>
     <p class="footer-disclaimer">Living portfolio — everything subject to change.</p>
-    <p class="last-updated">Last updated: September 5, 2026</p>
+    <p class="last-updated">Last updated: October 7, 2026</p>
     <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
       <span class="footer-copyright-text">&copy; 2026 Russell Longdon. All rights reserved.</span>
       <a href="../attributions.html" class="footer-attribution-badge">Attributions</a>
