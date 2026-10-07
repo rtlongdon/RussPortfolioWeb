@@ -45,7 +45,7 @@
       <li>Complementary filter implemented and validated on bench</li>
       <li>Full sensor suite integrated: BMI270 6-DOF IMU (gyro + accel), MS5611 barometer, KY-040 encoder</li>
       <li>BLE telemetry streaming roll, pitch, altitude, sensor temps, accelerometer and gyro data</li>
-      <li>Baseline filter performance established through 1 flight (4 data runs, ~45 minutes)</li>
+      <li>Baseline filter performance captured from 1 flight (4 data runs, ~45 minutes)</li>
     </ul>
     <div style="text-align: center; margin: 20px 0;">
       <a href="../assets/POC_V1_Mounted_090326.jpg" target="_blank" class="link-unstyled">
@@ -65,24 +65,24 @@
     </ul>
 
     <h2>What the In-Flight Data Showed</h2>
-    <p>One flight (Aug 26, 2026) collected 4 continuous data runs (~45 minutes total), comparing backup hardware estimates against Dynon reference:</p>
+    <p>One flight (Aug 26, 2026) recorded 4 continuous data runs (~45 minutes total), which I compared afterward against the Dynon reference:</p>
     <ul>
       <li><strong>Roll accuracy:</strong> 3.6–9.4° RMS error vs. Dynon reference, depending on maneuver intensity</li>
       <li><strong>Pitch error:</strong> 5.87–8.50° RMS</li>
       <li><strong>Shallow-bank regime:</strong> Below ~19° bank, gyro/accel combination shows observability limits without additional aiding</li>
-      <li><strong>Airspeed aiding:</strong> Testing showed airspeed-derived bank constraint improves heavy maneuvering roll by ~2°</li>
+      <li><strong>Airspeed aiding:</strong> Offline replay showed airspeed-derived bank constraint improves heavy maneuvering roll by ~2°</li>
       <li><strong>Accel gating:</strong> Rejection gates properly suppress acceleration noise; accel usage 35–81% depending on maneuver phase</li>
       <li><strong>Recovery behavior:</strong> Loss-of-accel recovery timer remains &lt; 1.5 seconds across all profiles</li>
     </ul>
     <p>Data logged to CSV for offline analysis; Python scripts extract Euler angles, compute RMS errors vs. reference, and characterize sensor noise floor.</p>
 
     <h2>In-Flight Update — September 3, 2026</h2>
-    <p>Second flight with the unit aboard (N712WE RV-12, ~39 minutes, hardware rigidly mounted). This was the first flight of a new estimator: an aided Extended Kalman Filter running <em>live on the ESP32</em> in shadow mode &mdash; logging its own attitude solution alongside the complementary filter for direct comparison, while the complementary filter still drove the bench display. The EKF uses GPS ground-velocity aiding and runs in the configuration the shipped unit will use: no magnetometer, no pitot-static.</p>
+    <p>Second flight with the unit aboard (N712WE RV-12, ~39 minutes, hardware rigidly mounted). This was the first flight of a new estimator: an aided Extended Kalman Filter running <em>live on the ESP32</em> in shadow mode &mdash; logging its own attitude solution alongside the complementary filter for direct comparison, while the complementary filter still drove the bench display. The EKF uses GPS ground-velocity aiding and runs in the configuration I'm aiming for: no magnetometer, no pitot-static.</p>
     <ul>
       <li><strong>Coordinated-turn blind spot closed on hardware:</strong> whole-flight roll error dropped to <strong>1.30&deg; RMS</strong> vs. Dynon reference, compared to 5.08&deg; for the complementary filter on the same flight. Roll accuracy held flat at 1&ndash;2&deg; RMS across every bank angle from wings-level through 50&deg; &mdash; the shallow- and mid-bank regime where the old filter was worst (10&ndash;12&deg; RMS) is now ~2&deg;.</li>
       <li><strong>Sustained turns:</strong> 22 held turns, pooled roll error 1.96&deg; RMS (vs. 8.45&deg; for the complementary filter).</li>
       <li><strong>Pitch:</strong> ~0.95&deg; RMS after removing a fixed +4.4&deg; offset, which is a physical mounting-alignment error (a one-time leveling adjustment, not an estimator problem).</li>
-      <li><strong>GPS-loss test:</strong> a deliberate 65-second cutoff of all reference/GPS data. With no aiding, EKF roll wandered during maneuvering &mdash; expected, since GPS velocity is what gives the filter its turn observability in this sensor configuration. It re-anchored cleanly within seconds once GPS returned, with no lasting error. This matches how certified GPS-aided backup instruments behave (warn, then blank the horizon); wiring up that &ldquo;attitude degraded&rdquo; annunciation is the next task.</li>
+      <li><strong>GPS-loss check:</strong> a deliberate 65-second cutoff of all reference/GPS data. With no aiding, EKF roll wandered during maneuvering &mdash; expected, since GPS velocity is what gives the filter its turn observability in this sensor configuration. It re-anchored cleanly within seconds once GPS returned, with no lasting error. This matches how certified GPS-aided backup instruments behave (warn, then blank the horizon); wiring up that &ldquo;attitude degraded&rdquo; annunciation is the next task.</li>
       <li><strong>Data capture:</strong> cleanest yet &mdash; 33 Hz backup telemetry, zero dropouts over the full flight.</li>
     </ul>
     <p>Incidental findings: ground-taxi turns independently confirmed the EKF's accelerometer-gating logic; the slip/skid indication reads about 0.7&times; of reference (flagged for a firmware fix); and cabin-pressure altitude runs 50&ndash;85 ft high at cruise speed &mdash; a known tradeoff of having no static port on a minimal backup instrument.</p>
