@@ -37,14 +37,14 @@
   <div class="wrap">
     <h2>What it is</h2>
     <p>A minimal, standalone attitude instrument. Scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed. The goal is an instrument a good pilot can cross-check against the rest of the panel, and one that <em>tells the truth about when it is unsure</em>. It does not have to be perfect, but it must never be wrong and quiet.</p>
-    <p>It is also designed to stand alone. There is no connection to the aircraft's pitot-static system, no airspeed sensor, and no magnetometer. GPS improves the solution when it is available, but the instrument is built to keep working when it is not. The system logs its estimator state and raw sensor data so I can compare it against reference avionics after each flight.</p>
+    <p>It is also designed to stand alone. There is no connection to the aircraft's pitot-static system, no airspeed sensor, and no magnetometer. GPS improves the solution when it is available, but the instrument is built to keep working when it is not. It is also built on commercial-grade MEMS sensors, the kind found in consumer and industrial electronics, rather than requiring expensive aviation-grade sensor types. Much of the work is getting good results from affordable parts through better data handling and estimation. The system logs its estimator state and raw sensor data so I can compare it against reference avionics after each flight.</p>
 
     <h2>Progress to Date</h2>
 
     <h3>Hardware (ESP32-S3 Firmware)</h3>
     <ul>
       <li>GPS-aided Extended Kalman Filter now drives the unit's main roll and pitch output, replacing the original complementary filter</li>
-      <li>Sensor suite: BMI270 6-DOF IMU (gyro + accel), MS5611 barometer, KY-040 encoder</li>
+      <li>Commercial-grade sensor suite: BMI270 6-DOF IMU (gyro + accel), MS5611 barometer, KY-040 encoder</li>
       <li>BLE telemetry streaming roll, pitch, altitude, sensor temperatures, and health flags</li>
       <li>High-rate onboard data logging for offline analysis</li>
     </ul>
@@ -203,6 +203,7 @@
     <div class="detail-meta">
       <div><strong>Focus</strong>Standalone attitude instrument</div>
       <div><strong>Current approach</strong>GPS-aided EKF on the hardware; GPS-independent and pitot-static-free by design</div>
+      <div><strong>Sensors</strong>Commercial-grade MEMS IMU and barometer</div>
       <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
       <div><strong>Status</strong>Early stage: working hardware, integrity monitoring in progress</div>
     </div>
