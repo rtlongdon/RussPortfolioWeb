@@ -28,7 +28,7 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
     <h1>ADAHRS Project</h1>
-    <p class="tagline">An experimental backup attitude instrument that rides along on my regular flights. It needs no pitot-static connection, and a GPS-aided estimator running live on the hardware tracks roll and pitch to roughly 1&deg; against the primary avionics on a rigid mount. In simulation it holds attitude within a degree or two of that without GPS at all. The current work is making it honest about when it is unsure.</p>
+    <p class="tagline">An experimental attitude instrument that rides along on my regular flights. It needs no pitot-static connection, and a GPS-aided estimator running live on the hardware tracks roll and pitch to roughly 1&deg; against the primary avionics on a rigid mount. In simulation it holds attitude within a degree or two of that without GPS at all. The current work is making it honest about when it is unsure.</p>
     <span class="status-badge status-live" data-tip="Rides along on regular flights; a GPS-aided estimator runs live on the hardware; incidental data is compared against the primary avionics afterward." tabindex="0">In-flight data comparison</span>
   </div>
 </section>
@@ -36,7 +36,7 @@
 <section class="app-detail-body">
   <div class="wrap">
     <h2>What it is</h2>
-    <p>A minimal, standalone backup attitude instrument designed to keep the pilot upright if the primary system fails. Scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed. The goal is an instrument a good pilot can cross-check against the rest of the panel, and one that <em>tells the truth about when it is unsure</em>. It does not have to be perfect, but it must never be wrong and quiet.</p>
+    <p>A minimal, standalone attitude instrument. Scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed. The goal is an instrument a good pilot can cross-check against the rest of the panel, and one that <em>tells the truth about when it is unsure</em>. It does not have to be perfect, but it must never be wrong and quiet.</p>
     <p>It is also designed to stand alone. There is no connection to the aircraft's pitot-static system, no airspeed sensor, and no magnetometer. GPS improves the solution when it is available, but the instrument is built to keep working when it is not. The system logs its estimator state and raw sensor data so I can compare it against reference avionics after each flight.</p>
 
     <h2>Progress to Date</h2>
@@ -177,8 +177,8 @@
       <li><strong>Clean inputs matter more than clever filtering.</strong> Much of the error I chased early on turned out to be vibration and sampling effects in the data feeding the filter, not the filter itself.</li>
       <li><strong>Mounting matters.</strong> The same hardware performs very differently on a rigid mount and a flexible one, so how it is installed is part of the design.</li>
       <li><strong>Gyro zero drifts with temperature,</strong> and not equally on every axis. Understanding and handling that is the largest remaining error source.</li>
-      <li><strong>The barometric altitude carries a constant per-unit offset</strong> and a speed-dependent error, as expected with no static port on a minimal backup instrument.</li>
-      <li><strong>Knowing when you're wrong is as important as being right.</strong> A backup instrument has to detect and announce GPS loss, warm-up, and stalled processing rather than quietly show a plausible but wrong horizon.</li>
+      <li><strong>The barometric altitude carries a constant per-unit offset</strong> and a speed-dependent error, as expected with no static port on a minimal instrument.</li>
+      <li><strong>Knowing when you're wrong is as important as being right.</strong> An attitude instrument has to detect and announce GPS loss, warm-up, and stalled processing rather than quietly show a plausible but wrong horizon.</li>
     </ul>
 
     <h2>Current Phase</h2>
@@ -197,11 +197,11 @@
     <h2>Documentation</h2>
     <ul>
       <li><a href="adahrs-docs.html">Sensor Selection &amp; Architecture</a> — Technical analysis of sensor choices and system design</li>
-      <li><a href="adahrs-docs.html">Backup ADAHRS Concept</a> — Core design philosophy and approach</li>
+      <li><a href="adahrs-docs.html">ADAHRS Concept</a> — Core design philosophy and approach</li>
     </ul>
 
     <div class="detail-meta">
-      <div><strong>Focus</strong>Backup attitude instrument</div>
+      <div><strong>Focus</strong>Standalone attitude instrument</div>
       <div><strong>Current approach</strong>GPS-aided EKF on the hardware; GPS-independent and pitot-static-free by design</div>
       <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
       <div><strong>Status</strong>Early stage: working hardware, integrity monitoring in progress</div>
