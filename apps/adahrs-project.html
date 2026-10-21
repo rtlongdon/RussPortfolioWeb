@@ -175,7 +175,6 @@
 
     <h2>What I've Learned</h2>
     <ul>
-      <li><strong>Clean inputs matter more than clever filtering.</strong> Much of the error I chased early on turned out to be vibration and sampling effects in the data feeding the filter, not the filter itself.</li>
       <li><strong>Mounting matters.</strong> The same hardware performs very differently on a rigid mount and a flexible one, so how it is installed is part of the design.</li>
       <li><strong>Gyro zero drifts with temperature,</strong> and not equally on every axis. Understanding and handling that is the largest remaining error source.</li>
       <li><strong>The barometric altitude carries a constant per-unit offset</strong> and a speed-dependent error, as expected with no static port on a minimal instrument.</li>
@@ -190,7 +189,6 @@
       <li>Characterize and compensate for gyro temperature effects on the bench</li>
       <li>Confirm GPS-independent operation in live flight, on a documented, repeatable mount over several flights, including deliberate GPS-loss and cold-start cases</li>
       <li>Verify the degraded-attitude annunciation with simulated faults (GPS loss, stalled processing, sensor disagreement)</li>
-      <li>Refine the sampling path so the best-performing data handling runs in firmware</li>
       <li>Display integration: RGB attitude display and vertical-speed tape</li>
       <li>Board and enclosure refinement</li>
     </ul>
