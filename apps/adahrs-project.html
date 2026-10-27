@@ -29,7 +29,7 @@
     <a class="back-link" href="../index.html">&larr; All projects</a>
     <div class="app-icon" style="background:#8a6d3b;">&#128736;&#65039;</div>
     <h1>ADAHRS Project</h1>
-    <p class="tagline">An experimental attitude instrument that rides along on my regular flights. It needs no pitot-static connection, and a GPS-aided estimator running live on the hardware tracks roll and pitch to roughly 1&deg; against the primary avionics on a rigid mount. In simulation it holds attitude within a degree or two of that without GPS at all. The current work is making it honest about when it is unsure.</p>
+    <p class="tagline">An experimental attitude instrument that rides along on my regular flights. It needs no pitot-static connection and does not require GPS. On a rigid mount it tracks roll and pitch to roughly 1&deg; against the primary avionics with optional GPS aiding, and in simulation holds attitude within a degree or two of that with no GPS at all. The current work is making it honest about when it is unsure.</p>
     <span class="status-badge status-live" data-tip="Rides along on regular flights; a GPS-aided estimator runs live on the hardware; incidental data is compared against the primary avionics afterward." tabindex="0">In-flight data comparison</span>
   </div>
 </section>
@@ -38,13 +38,13 @@
   <div class="wrap">
     <h2>What it is</h2>
     <p>A minimal, standalone attitude instrument. Scope is deliberately narrow: attitude (pitch/roll) + altitude + vertical speed. The goal is an instrument a good pilot can cross-check against the rest of the panel, and one that <em>tells the truth about when it is unsure</em>. It does not have to be perfect, but it must never be wrong and quiet.</p>
-    <p>It is also designed to stand alone. There is no connection to the aircraft's pitot-static system, no airspeed sensor, and no magnetometer. GPS improves the solution when it is available, but the instrument is built to keep working when it is not. It is also built on commercial-grade MEMS sensors, the kind found in consumer and industrial electronics, rather than requiring expensive aviation-grade sensor types. Much of the work is getting good results from affordable parts through better data handling and estimation. The system logs its estimator state and raw sensor data so I can compare it against reference avionics after each flight.</p>
+    <p>It is also designed to stand alone. There is no connection to the aircraft's pitot-static system, no airspeed sensor, and no magnetometer. <strong>GPS is optional.</strong> The core attitude solution comes entirely from the unit's own sensors and works with no GPS at all. When GPS is available it is used as an aid that tightens the result, especially in sustained turns, but nothing depends on it, and losing it degrades accuracy gradually rather than stopping the instrument. It is also built on commercial-grade MEMS sensors, the kind found in consumer and industrial electronics, rather than requiring expensive aviation-grade sensor types. Much of the work is getting good results from affordable parts through better data handling and estimation. The system logs its estimator state and raw sensor data so I can compare it against reference avionics after each flight.</p>
 
     <h2>Progress to Date</h2>
 
     <h3>Hardware (ESP32-S3 Firmware)</h3>
     <ul>
-      <li>GPS-aided Extended Kalman Filter now drives the unit's main roll and pitch output, replacing the original complementary filter</li>
+      <li>Extended Kalman Filter now drives the unit's main roll and pitch output, replacing the original complementary filter. GPS aiding is optional and improves the result when present, but the filter does not require it</li>
       <li>Commercial-grade sensor suite: BMI270 6-DOF IMU (gyro + accel), MS5611 barometer, KY-040 encoder</li>
       <li>BLE telemetry streaming roll, pitch, altitude, sensor temperatures, and health flags</li>
       <li>High-rate onboard data logging for offline analysis</li>
@@ -60,7 +60,7 @@
     <ul>
       <li>Real-time BLE receiver: captures hardware roll, pitch, altitude, IMU and barometer telemetry</li>
       <li>Reference data logger: reads the Dynon avionics stream via UDP</li>
-      <li>Navigation input: GPS position and magnetic heading from tablet sensors, sent to the hardware</li>
+      <li>Optional aiding input: GPS position and magnetic heading from tablet sensors, sent to the hardware when available</li>
       <li>Comparative CSV export: side-by-side hardware vs. reference data, synchronized and timestamped</li>
       <li>Attitude status indicator (OK / degraded / fail) driven by the hardware's own health reporting</li>
       <li>Python analysis and simulator tools: run recorded flights through the estimator to evaluate changes without flying again</li>
@@ -71,7 +71,7 @@
       <li><strong>August 2026 &mdash; baseline.</strong> The first flight used a simple gyro + accelerometer filter. Roll error was several degrees, and worst in coordinated turns, where the accelerometer cannot tell a banked turn from level flight.</li>
       <li><strong>September 2026 &mdash; GPS-aided estimator.</strong> A GPS-aided Extended Kalman Filter ran live on the hardware alongside the original filter. Whole-flight roll error against the Dynon dropped from about 5&deg; to about 1.3&deg; RMS, and the coordinated-turn problem went away.</li>
       <li><strong>September&ndash;October 2026 &mdash; more flights, more lessons.</strong> Additional flights included a deliberately poor, flexible mount as a stress case. The estimator now drives the unit's output, and a library of recorded flights supports simulation and comparison.</li>
-      <li><strong>Working without GPS.</strong> In a simulator driven by recorded flight data, the same approach holds attitude to within a degree or two of the GPS-aided result with GPS withheld entirely, and with no airspeed or pitot-static input. This has been shown in simulation and still needs confirming in live flight. A software directional gyro looks plausible but is not yet proven.</li>
+      <li><strong>GPS helps, but is not required.</strong> In a simulator driven by recorded flight data, the same approach holds attitude to within a degree or two of the GPS-aided result with GPS withheld entirely, and with no airspeed or pitot-static input. This has been shown in simulation and still needs confirming in live flight. A software directional gyro looks plausible but is not yet proven.</li>
       <li><strong>Engine RPM from vibration alone.</strong> With the aircraft's fixed-pitch propeller, an FFT of the unit's own high-rate vibration data recovers engine RPM with no tachometer connection. Against the engine monitor, the median error was about 6&nbsp;rpm and roughly 96% of samples landed within 30&nbsp;rpm. This is one flight on one aircraft, so I treat it as promising rather than general. It is not yet running in the firmware, and a constant-speed propeller would behave differently.</li>
     </ul>
 
@@ -187,7 +187,7 @@
     <h2>Next Steps</h2>
     <ul>
       <li>Characterize and compensate for gyro temperature effects on the bench</li>
-      <li>Confirm GPS-independent operation in live flight, on a documented, repeatable mount over several flights, including deliberate GPS-loss and cold-start cases</li>
+      <li>Confirm operation with no GPS in live flight, on a documented, repeatable mount over several flights, including deliberate GPS-loss and cold-start cases</li>
       <li>Verify the degraded-attitude annunciation with simulated faults (GPS loss, stalled processing, sensor disagreement)</li>
       <li>Display integration: RGB attitude display and vertical-speed tape</li>
       <li>Board and enclosure refinement</li>
@@ -201,7 +201,7 @@
 
     <div class="detail-meta">
       <div><strong>Focus</strong>Standalone attitude instrument</div>
-      <div><strong>Current approach</strong>GPS-aided EKF on the hardware; GPS-independent and pitot-static-free by design</div>
+      <div><strong>Current approach</strong>EKF on the hardware; GPS aiding optional, not required; pitot-static-free by design</div>
       <div><strong>Sensors</strong>Commercial-grade MEMS IMU and barometer</div>
       <div><strong>Data logging</strong>BLE + comparative analysis vs. reference avionics</div>
       <div><strong>Status</strong>Early stage: working hardware, integrity monitoring in progress</div>
@@ -213,7 +213,7 @@
   <div class="wrap">
     <p>Russ Longdon — software, hardware, and CNC projects.</p>
     <p class="footer-disclaimer">Living portfolio — everything subject to change.</p>
-    <p class="last-updated">Last updated: October 21, 2026</p>
+    <p class="last-updated">Last updated: October 27, 2026</p>
     <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
       <span class="footer-copyright-text">&copy; 2026 Russell Longdon. All rights reserved.</span>
       <a href="../attributions.html" class="footer-attribution-badge">Attributions</a>
